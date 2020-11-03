@@ -9,6 +9,7 @@ FactoryBot.define do
   end
 
   factory :quest do
+    sequence(:name) { |n| "Quest #{n}" }
     category { 'art' }
   end
 
