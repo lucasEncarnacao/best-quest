@@ -2,8 +2,8 @@ u1 = User.find_or_initialize_by(username: "quester", email: "user@fake.com")
 u1.password =  ENV["USER_PASSWORD"]
 u1.save!
 
-q1 = Quest.find_or_create_by!(name: "Quest 1", category: "art", owner: u1)
-q2 = Quest.find_or_create_by!(name: "Quest 2", category: "food", owner: u1)
+q1 = Quest.find_or_create_by!(name: "Quest 1", category: "art", description: "description 1", owner: u1)
+q2 = Quest.find_or_create_by!(name: "Quest 2", category: "food", description: "description 2", owner: u1)
 
 s1 = Step.find_or_create_by!(
   quest: q1,

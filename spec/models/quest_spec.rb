@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Quest, type: :model do
-  subject { Quest.new(user_id: 1, name: "Quest Name", category: "art") }
+  subject { Quest.new(user_id: 1, name: "Quest Name", category: "art", description: "description") }
   
   it { should belong_to :owner }
   it { should have_many :steps }
@@ -12,4 +12,7 @@ RSpec.describe Quest, type: :model do
 
   it { should have_valid(:category).when("misc", "art", "history", "food") }
   it { should_not have_valid(:category).when(nil, "") }
+
+  it { should have_valid(:description).when("This is a description") }
+  it { should_not have_valid(:description).when(nil, "") }
 end
