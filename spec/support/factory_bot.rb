@@ -11,6 +11,7 @@ FactoryBot.define do
   factory :quest do
     sequence(:name) { |n| "Quest #{n}" }
     category { 'art' }
+    description { 'this is a description' }
   end
 
   factory :step do

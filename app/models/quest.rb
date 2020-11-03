@@ -7,6 +7,7 @@ class Quest < ApplicationRecord
 
   validates :name, presence: true, uniqueness: true
   validates :category, presence: true
+  validates :description, presence: true
 
   def set_default_category
     category ||= :misc

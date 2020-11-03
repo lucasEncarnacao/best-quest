@@ -5,10 +5,11 @@ Rails.application.routes.draw do
   root 'homes#index'
 
   get '/quests', to: 'homes#index'
+  get '/quests/:id', to: 'homes#index'
 
   namespace :api do 
     namespace :v1 do
-      resources :quests, only: [:index]
+      resources :quests, only: [:index, :show]
     end
   end
 end

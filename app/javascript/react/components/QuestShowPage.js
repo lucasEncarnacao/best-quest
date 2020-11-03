@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from "react";
-import QuestIndexTile from "./QuestIndexTile";
 
-const QuestsContainer = (props) => {
-  const [quests, setQuests] = useState([]);
+const QuestShowPage = (props) => {
+  const [quest, setQuest] = useState({
+    name: "",
+    description: "",
+  });
 
   useEffect(() => {
-    fetch("/api/v1/quests/")
+    const id = props.match.params.id;
+
+    fetch(`/api/v1/quests/${id}`)
       .then((response) => {
         if (response.ok) {
           return response;
@@ -17,16 +21,17 @@ const QuestsContainer = (props) => {
       })
       .then((response) => response.json())
       .then((body) => {
-        setQuests(body.quests);
+        setQuest(body.quest);
       })
       .catch((error) => console.error(`Error in fetch: ${error.message}`));
   }, []);
 
-  const questList = quests.map((quest) => {
-    return <QuestIndexTile key={quest.id} quest={quest} />;
-  });
-
-  return <div>{questList}</div>;
+  return (
+    <div>
+      <h1>{quest.name}</h1>
+      <h2>{quest.description}</h2>
+    </div>
+  );
 };
 
-export default QuestsContainer;
+export default QuestShowPage;
