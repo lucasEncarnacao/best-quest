@@ -27,6 +27,7 @@ gem 'jbuilder', '~> 2.5'
 # gem 'capistrano-rails', group: :development
 
 gem "active_model_serializers"
+gem "haversine"
 
 group :development, :test do
 
