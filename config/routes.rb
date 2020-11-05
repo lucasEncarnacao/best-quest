@@ -6,10 +6,16 @@ Rails.application.routes.draw do
 
   get '/quests', to: 'homes#index'
   get '/quests/:id', to: 'homes#index'
+  get '/quests/:id/active', to: 'homes#index'
+  get '/quests/:id/complete', to: 'homes#index'
 
   namespace :api do 
     namespace :v1 do
-      resources :quests, only: [:index, :show, :create]
+      resources :quests, only: [:index, :show, :create] do
+        resources :steps, only: [:index]
+      end
+
+      resources :check_locs, only: [:create]
     end
   end
 end

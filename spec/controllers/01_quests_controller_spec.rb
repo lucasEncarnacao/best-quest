@@ -87,7 +87,7 @@ RSpec.describe Api::V1::QuestsController, type: :controller do
       expect(Quest.count).to eq(prev_count + 1)
     end
 
-    it "returns the json of the newly posted giraffe" do
+    it "returns the json of the newly posted quest" do
       sign_in test_user
   
       post(:create, params: post_json, format: :json)

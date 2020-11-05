@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const QuestShowPage = (props) => {
   const [quest, setQuest] = useState({
     name: "",
     description: "",
   });
+  const id = props.match.params.id;
 
   useEffect(() => {
-    const id = props.match.params.id;
-
     fetch(`/api/v1/quests/${id}`)
       .then((response) => {
         if (response.ok) {
@@ -30,6 +30,10 @@ const QuestShowPage = (props) => {
     <div>
       <h1>{quest.name}</h1>
       <h2>{quest.description}</h2>
+
+      <Link to={`/quests/${id}/active`}>
+        <button>Start This Quest</button>
+      </Link>
     </div>
   );
 };
