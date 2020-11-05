@@ -5,6 +5,10 @@ RSpec.describe Quest, type: :model do
   
   it { should belong_to :owner }
   it { should have_many :steps }
+  it { should  have_many :completion_times }
+  it { should have_many :conquerers }
+  it { should  have_many :reviews }
+  it { should have_many :reviewers }
 
   it { should have_valid(:name).when("Quest Name") }
   it { should_not have_valid(:name).when(nil, "") }

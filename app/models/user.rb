@@ -5,6 +5,10 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :quests
+  has_many :completion_times
+  has_many :completed_quests, through: :completion_times, source: :quest
+  has_many :reviews
+  has_many :reviewed_quests, through: :reviews, source: :quest
 
   validates :email, presence: true, uniqueness: true 
   validates :username, presence: true, uniqueness: true
