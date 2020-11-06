@@ -5,7 +5,7 @@ class Api::V1::QuestsController < ApiController
 
   def show
     quest = Quest.find(params[:id])
-    render json: quest
+    render json: quest, serializer: QuestShowSerializer
   end
 
   def create
@@ -24,7 +24,7 @@ class Api::V1::QuestsController < ApiController
         quest.save
         steps.each {|step| step.save}
         
-        render json: quest
+        render json: quest, serializer: QuestShowSerializer
       else
         bad_steps = steps.select{|step| !step.valid?}
 

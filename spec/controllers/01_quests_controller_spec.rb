@@ -44,12 +44,13 @@ RSpec.describe Api::V1::QuestsController, type: :controller do
       expect(response.status).to eq 200
       expect(response.content_type).to eq("application/json")
 
-      expect(returned_json["quest"].length).to eq 5
+      expect(returned_json["quest"].length).to eq 6
       expect(returned_json["quest"]["id"]).to eq first_quest.id
       expect(returned_json["quest"]["name"]).to eq "Quest 1"
       expect(returned_json["quest"]["category"]).to eq "art"
       expect(returned_json["quest"]["description"]).to eq "Description 1"
       expect(returned_json["quest"]["ownerName"]).to eq test_user.username
+      expect(returned_json["quest"]["reviews"]).to be_kind_of(Array)
     end
   end
 

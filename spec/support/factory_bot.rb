@@ -22,4 +22,9 @@ FactoryBot.define do
     sequence(:hint) { |n| "hint #{n}" }
     sequence(:description) { |n| "description #{n}" }
   end
+
+  factory :review do
+    rating { 5 }
+    comment { 'this is a comment' }
+  end
 end

@@ -2,13 +2,7 @@ require "rails_helper"
 
 RSpec.describe Api::V1::CheckLocsController, type: :controller do
   let!(:test_user) { FactoryBot.create(:user) }
-
-  let!(:test_quest) { 
-    FactoryBot.create(
-      :quest, 
-      owner: test_user, 
-    ) 
-  }
+  let!(:test_quest) { FactoryBot.create(:quest, owner: test_user) }
 
   let!(:first_step) { 
     FactoryBot.create(
