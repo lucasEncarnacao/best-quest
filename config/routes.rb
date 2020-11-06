@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :quests, only: [:index, :show, :create] do
         resources :steps, only: [:index]
+        resources :reviews, only: [:create]
       end
 
       resources :check_locs, only: [:create]

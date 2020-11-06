@@ -2,27 +2,9 @@ require "rails_helper"
 
 RSpec.describe Api::V1::StepsController, type: :controller do
   let!(:test_user) { FactoryBot.create(:user) }
-
-  let!(:test_quest) { 
-    FactoryBot.create(
-      :quest, 
-      owner: test_user, 
-    ) 
-  }
-
-  let!(:first_step) { 
-    FactoryBot.create(
-      :step, 
-      quest: test_quest, 
-    ) 
-  }
-
-  let!(:second_step) { 
-    FactoryBot.create(
-      :step, 
-      quest: test_quest, 
-    ) 
-  }
+  let!(:test_quest) { FactoryBot.create(:quest, owner: test_user) }
+  let!(:first_step) { FactoryBot.create(:step, quest: test_quest) }
+  let!(:second_step) { FactoryBot.create(:step, quest: test_quest) }
 
   describe "GET#index" do
     it "should return a list of all the steps" do

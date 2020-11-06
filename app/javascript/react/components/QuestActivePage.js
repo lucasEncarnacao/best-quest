@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Redirect } from "react-router-dom";
 import HintSection from "./HintSection";
 import SolvingView from "./SolvingView";
 import SolvedView from "./SolvedView";
@@ -12,6 +13,7 @@ const QuestActivePage = (props) => {
   const [completed, setCompleted] = useState(false); //completed quest
   const [error, setError] = useState("");
   const [badLocCounter, setBadLocCounter] = useState(0); //controls showing give up button
+  const [shouldRedirect, setShouldRedirect] = useState(false);
   const quest_id = props.match.params.id;
   let view = null;
   let hintSection = null;
@@ -101,9 +103,41 @@ const QuestActivePage = (props) => {
     setSolving(false);
   };
 
-  hintSection = shouldShowHintSection ? (
-    <HintSection hint={steps[currentStepIndex].hint} />
-  ) : null;
+  const addNewReview = (formPayload) => {
+    fetch(`/api/v1/quests/${quest_id}/reviews`, {
+      credentials: "same-origin",
+      method: "POST",
+      body: JSON.stringify(formPayload),
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response;
+        } else {
+          let errorMessage = `${response.status} (${response.statusText})`,
+            error = new Error(errorMessage);
+          throw error;
+        }
+      })
+      .then((response) => response.json())
+      .then((review) => {
+        setShouldRedirect(true);
+      })
+      .catch((error) => console.error(`Error in fetch: ${error.message}`));
+  };
+
+  if (shouldRedirect) {
+    return <Redirect to="/" />;
+  }
+
+  if (shouldShowHintSection) {
+    hintSection = <HintSection hint={steps[currentStepIndex].hint} />;
+  } else {
+    hintSection = null;
+  }
 
   if (solving) {
     view = (
@@ -126,7 +160,7 @@ const QuestActivePage = (props) => {
   }
 
   if (completed) {
-    view = <QuestCompleteView />;
+    view = <QuestCompleteView addNewReview={addNewReview} />;
   }
 
   return <div>{view}</div>;
