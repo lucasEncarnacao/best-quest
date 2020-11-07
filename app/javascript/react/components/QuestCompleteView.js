@@ -23,6 +23,7 @@ const QuestCompleteView = (props) => {
   return (
     <div>
       <h1>You did it!</h1>
+      <h2>Final time {props.completionTime}</h2>
       <form onSubmit={handleSubmit}>
         <label htmlFor="rating">
           <h5>Rating:</h5>
