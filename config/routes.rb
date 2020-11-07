@@ -14,8 +14,10 @@ Rails.application.routes.draw do
       resources :quests, only: [:index, :show, :create] do
         resources :steps, only: [:index]
         resources :reviews, only: [:create]
+        resources :completion_times, only: [:create]
       end
 
+      resources :completion_times, only: [:update]
       resources :check_locs, only: [:create]
     end
   end
