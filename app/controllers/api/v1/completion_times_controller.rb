@@ -18,7 +18,7 @@ class Api::V1::CompletionTimesController < ApiController
     time.sec = time.end_time - time.start_time
 
     time.save
-
+    
     render json: time
   end
 end

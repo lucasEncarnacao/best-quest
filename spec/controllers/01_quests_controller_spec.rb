@@ -84,14 +84,14 @@ RSpec.describe Api::V1::QuestsController, type: :controller do
     it "creates a new quest with all steps" do
       sign_in test_user
       prev_count = Quest.count
-      post(:create, params: post_json, format: :json)
+      post(:create, params: post_json, as: :json)
       expect(Quest.count).to eq(prev_count + 1)
     end
 
     it "returns the json of the newly posted quest" do
       sign_in test_user
   
-      post(:create, params: post_json, format: :json)
+      post(:create, params: post_json, as: :json)
       returned_json = JSON.parse(response.body)
       expect(response.status).to eq 200
       expect(response.content_type).to eq("application/json")
@@ -124,7 +124,7 @@ RSpec.describe Api::V1::QuestsController, type: :controller do
 
         sign_in test_user
     
-        post(:create, params: bad_post_json, format: :json)
+        post(:create, params: bad_post_json, as: :json)
         returned_json = JSON.parse(response.body)
         expect(response.status).to eq 200
         expect(response.content_type).to eq("application/json")
@@ -156,7 +156,7 @@ RSpec.describe Api::V1::QuestsController, type: :controller do
 
         sign_in test_user
     
-        post(:create, params: bad_post_json, format: :json)
+        post(:create, params: bad_post_json, as: :json)
         returned_json = JSON.parse(response.body)
         expect(response.status).to eq 200
         expect(response.content_type).to eq("application/json")

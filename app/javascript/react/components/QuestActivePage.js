@@ -137,7 +137,7 @@ const QuestActivePage = (props) => {
         })
         .then((response) => response.json())
         .then((body) => {
-          setCompletionTime(body.completion_time.completionTime);
+          setCompletionTime(body.completion_time.formatted_str);
         })
         .catch((error) => console.error(`Error in fetch: ${error.message}`));
     } else {

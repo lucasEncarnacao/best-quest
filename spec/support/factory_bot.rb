@@ -27,4 +27,8 @@ FactoryBot.define do
     rating { 5 }
     comment { 'this is a comment' }
   end
+
+  factory :completion_time do
+    start_time { Time.new }
+  end
 end
