@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Grid } from "@material-ui/core";
 import QuestIndexTile from "./QuestIndexTile";
 
 const QuestsContainer = (props) => {
@@ -26,7 +27,11 @@ const QuestsContainer = (props) => {
     return <QuestIndexTile key={quest.id} quest={quest} />;
   });
 
-  return <div>{questList}</div>;
+  return (
+    <Grid container spacing={2}>
+      {questList}
+    </Grid>
+  );
 };
 
 export default QuestsContainer;

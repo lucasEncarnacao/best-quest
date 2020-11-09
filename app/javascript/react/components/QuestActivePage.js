@@ -111,6 +111,8 @@ const QuestActivePage = (props) => {
     navigator.geolocation.getCurrentPosition(handleSuccess, handleError, {
       enableHighAccuracy: true,
     });
+
+    setError("");
   };
 
   const nextClueClick = () => {
