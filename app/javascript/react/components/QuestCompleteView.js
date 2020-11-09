@@ -1,16 +1,23 @@
 import React, { useState } from "react";
-import RatingRadioGroup from "./RatingRadioGroup";
+import { Button, Grid, TextField, Typography } from "@material-ui/core";
+import Rating from "@material-ui/lab/Rating";
 
 const QuestCompleteView = (props) => {
   const [formFields, setFormFields] = useState({
-    rating: "3",
+    rating: 3,
     comment: "",
   });
 
   const handleFieldChange = (event) => {
+    let newValue = event.currentTarget.value;
+
+    if (event.currentTarget.name === "rating") {
+      newValue = parseInt(newValue);
+    }
+
     setFormFields({
       ...formFields,
-      [event.currentTarget.name]: event.currentTarget.value,
+      [event.currentTarget.name]: newValue,
     });
   };
 
@@ -21,34 +28,60 @@ const QuestCompleteView = (props) => {
   };
 
   return (
-    <div>
-      <h1>You did it!</h1>
-      <h2>Final time {props.completionTime}</h2>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="rating">
-          <h5>Rating:</h5>
-        </label>
-        <div id="rating">
-          <RatingRadioGroup
-            handleFieldChange={handleFieldChange}
-            state={formFields.rating}
-          />
-        </div>
+    <>
+      <Grid container direction="column" alignItems="center" spacing={2}>
+        <Grid item>
+          <Typography variant="h3">Congratulations!</Typography>
+        </Grid>
 
-        <label htmlFor="comment">
-          <h5>Comment:</h5>
-        </label>
-        <input
-          type="text"
-          id="comment"
-          name="comment"
-          onChange={handleFieldChange}
-          value={formFields.comment}
-        />
+        <Grid item>
+          <Typography variant="h4">You conquered the Quest!</Typography>
+        </Grid>
 
-        <input type="submit" value="Add Review" />
+        <Grid item>
+          <Typography variant="h5">
+            Final time: {props.completionTime}
+          </Typography>
+        </Grid>
+      </Grid>
+
+      <form onSubmit={handleSubmit} autoComplete="off">
+        <Grid container direction="column" alignItems="center" spacing={2}>
+          <Grid item>
+            <Typography htmlFor="rating" component="legend">
+              Rating
+            </Typography>
+            <Rating
+              id="rating"
+              name="rating"
+              value={formFields.rating}
+              onChange={handleFieldChange}
+            />
+          </Grid>
+
+          <Grid item container justify="center">
+            <Grid item xs={8} md={6}>
+              <TextField
+                type="text"
+                name="comment"
+                label="Comment"
+                multiline
+                rowsMax={4}
+                fullWidth
+                onChange={handleFieldChange}
+                value={formFields.comment}
+              />
+            </Grid>
+          </Grid>
+
+          <Grid item>
+            <Button type="submit" variant="contained" color="primary">
+              Add Review
+            </Button>
+          </Grid>
+        </Grid>
       </form>
-    </div>
+    </>
   );
 };
 

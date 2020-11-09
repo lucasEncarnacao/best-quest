@@ -29,6 +29,6 @@ FactoryBot.define do
   end
 
   factory :completion_time do
-    start_time { Time.new }
+    start_time { Time.now }
   end
 end

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Button, Typography } from "@material-ui/core";
 
 const HintSection = (props) => {
   const [show, setShow] = useState(false);
@@ -9,12 +10,16 @@ const HintSection = (props) => {
   };
 
   if (show) {
-    hintSection = <h1>{props.hint}</h1>;
+    hintSection = <Typography variant="h5">Hint: {props.hint}</Typography>;
   } else {
-    hintSection = <button onClick={showHint}>Hint</button>;
+    hintSection = (
+      <Button variant="contained" color="secondary" onClick={showHint}>
+        Hint
+      </Button>
+    );
   }
 
-  return <div>{hintSection}</div>;
+  return hintSection;
 };
 
 export default HintSection;

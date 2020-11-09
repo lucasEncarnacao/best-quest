@@ -1,53 +1,49 @@
 import React from "react";
+import { Grid, MenuItem, TextField } from "@material-ui/core";
 
 const QuestNewForm = (props) => {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    props.submit();
-  };
-
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="name">Quest Name:</label>
-          <input
-            type="text"
-            id="name"
+    <form autoComplete="off">
+      <Grid container direction="column" spacing={1}>
+        <Grid item>
+          <TextField
+            fullWidth
+            label="Quest Name"
             name="name"
             onChange={props.handleChange}
             value={props.questFields?.name}
           />
-        </div>
+        </Grid>
 
-        <div>
-          <label htmlFor="category">Category:</label>
-          <select
-            id="category"
+        <Grid item>
+          <TextField
+            select
+            fullWidth
+            label="Quest Category"
             name="category"
             onChange={props.handleChange}
             value={props.questFields?.category}
           >
-            <option value=""></option>
-            <option value="art">Art</option>
-            <option value="history">History</option>
-            <option value="food">Food</option>
-            <option value="misc">Misc</option>
-          </select>
-        </div>
+            <MenuItem value="art">Art</MenuItem>
+            <MenuItem value="history">History</MenuItem>
+            <MenuItem value="food">Food</MenuItem>
+            <MenuItem value="misc">Misc</MenuItem>
+          </TextField>
+        </Grid>
 
-        <div>
-          <label htmlFor="description">Quest Description:</label>
-          <input
-            type="text"
-            id="description"
+        <Grid item>
+        <TextField
+            fullWidth
+            multiline
+            rowsMax={3}
+            label="Quest Description"
             name="description"
             onChange={props.handleChange}
             value={props.questFields?.description}
           />
-        </div>
-      </form>
-    </div>
+        </Grid>
+      </Grid>
+    </form>
   );
 };
 

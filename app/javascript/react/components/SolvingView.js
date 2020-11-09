@@ -1,25 +1,46 @@
 import React from "react";
+import { Button, Grid, Typography } from "@material-ui/core";
 
 const SolvingView = (props) => {
   let errorMessage = null;
   let giveUpButton = null;
 
   if (props.error !== "") {
-    errorMessage = <h3>{props.error}</h3>;
+    errorMessage = <Typography>{props.error}</Typography>;
   }
 
   if (props.badLocCounter >= 3) {
-    giveUpButton = <button onClick={props.giveUpClick}>Give up</button>;
+    giveUpButton = (
+      <Button variant="contained" color="secondary" onClick={props.giveUpClick}>
+        Give up
+      </Button>
+    );
   }
 
   return (
-    <div>
-      <h1>Clue: {props.clue}</h1>
-      {props.hintSection}
-      <button onClick={props.checkLocation}>Check Location</button>
-      {errorMessage}
-      {giveUpButton}
-    </div>
+    <Grid container direction="column" alignItems="center" spacing={3}>
+      <Grid item>
+        <Typography variant="h3" align="center">
+          Clue: {props.clue}
+        </Typography>
+      </Grid>
+
+      <Grid item>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={props.checkLocation}
+        >
+          Am I there yet?
+        </Button>
+      </Grid>
+
+      <Grid item>{errorMessage}</Grid>
+
+      <Grid item>{props.hintSection}</Grid>
+
+      <Grid item>{giveUpButton}</Grid>
+    </Grid>
   );
 };
 

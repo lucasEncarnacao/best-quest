@@ -21,8 +21,8 @@ ActiveRecord::Schema.define(version: 2020_11_06_203359) do
     t.integer "sec"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.time "start_time", null: false
-    t.time "end_time"
+    t.datetime "start_time", null: false
+    t.datetime "end_time"
     t.index ["quest_id"], name: "index_completion_times_on_quest_id"
     t.index ["user_id"], name: "index_completion_times_on_user_id"
   end

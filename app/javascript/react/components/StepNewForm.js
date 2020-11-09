@@ -1,14 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Grid,
+  TextField,
+  Typography,
+} from "@material-ui/core";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MapContainer from "./MapContainer";
 
 const StepNewForm = (props) => {
+  const [expanded, setExpanded] = useState(false);
+
+  const handleAccordionChange = () => {
+    setExpanded(!expanded);
+  };
+
   const passUpChange = (event) => {
-    //pass as array of all names and values to update so
-    //handleChange can be reused for lat and lng
     props.handleChange(
       props.stepNum - 1,
-      [event.currentTarget.name],
-      [event.currentTarget.value]
+      [event.currentTarget.name], //pass as array of all names and values to update so
+      [event.currentTarget.value] //handleChange can be reused for lat and lng
     );
   };
 
@@ -17,43 +30,54 @@ const StepNewForm = (props) => {
   };
 
   return (
-    <div>
-      <MapContainer handleChange={passUpMapChange} />
-      <form>
-        <div>
-          <label htmlFor="clue">Clue:</label>
-          <input
-            type="text"
-            id="clue"
-            name="clue"
-            onChange={passUpChange}
-            value={props.stepFields?.clue}
-          />
-        </div>
+    <Accordion expanded={expanded} onChange={handleAccordionChange}>
+      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+        <Typography variant="h5">Location {props.stepNum}</Typography>
+      </AccordionSummary>
 
-        <div>
-          <label htmlFor="hint">Hint:</label>
-          <input
-            type="text"
-            id="hint"
-            name="hint"
-            onChange={passUpChange}
-            value={props.stepFields?.hint}
-          />
-        </div>
+      <AccordionDetails>
+        <form autoComplete="off" style={{ width: "100%" }}>
+          <Grid container direction="column" spacing={1}>
+            <Grid item>
+              <MapContainer handleChange={passUpMapChange} />
+            </Grid>
 
-        <div>
-          <label htmlFor="description">Description:</label>
-          <input
-            type="text"
-            id="description"
-            name="description"
-            onChange={passUpChange}
-            value={props.stepFields?.description}
-          />
-        </div>
-      </form>
-    </div>
+            <Grid item>
+              <TextField
+                fullWidth
+                label="Clue"
+                name="clue"
+                helperText="Clue that leads the player to the location"
+                onChange={passUpChange}
+                value={props.questFields?.clue}
+              />
+            </Grid>
+
+            <Grid item>
+              <TextField
+                fullWidth
+                label="Hint"
+                name="hint"
+                helperText="Helpful hint if players get stuck"
+                onChange={passUpChange}
+                value={props.questFields?.hint}
+              />
+            </Grid>
+
+            <Grid item>
+              <TextField
+                fullWidth
+                label="Answer Description"
+                name="description"
+                helperText="Insightful description of the answer location"
+                onChange={passUpChange}
+                value={props.questFields?.description}
+              />
+            </Grid>
+          </Grid>
+        </form>
+      </AccordionDetails>
+    </Accordion>
   );
 };
 

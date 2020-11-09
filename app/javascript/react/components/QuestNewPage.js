@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
+import { Button, Grid, Typography } from "@material-ui/core";
 import QuestNewForm from "./QuestNewForm";
 import StepNewForm from "./StepNewForm";
 
@@ -21,12 +22,12 @@ const QuestNewPage = (props) => {
   const [shouldRedirect, setShouldRedirect] = useState(false);
   const [errors, setErrors] = useState("");
   let stepForms = null;
-  let errorsDiv = null;
+  let errorMessages = null;
 
   const handleChange = (event) => {
     setQuestFields({
       ...questFields,
-      [event.currentTarget.name]: event.currentTarget.value,
+      [event.target.name]: event.target.value,
     });
   };
 
@@ -107,21 +108,39 @@ const QuestNewPage = (props) => {
   }
 
   if (errors !== "") {
-    errorsDiv = <div>{errors}</div>;
+    errorMessages = (
+      <Grid item>
+        <Typography>{errors}</Typography>
+      </Grid>
+    );
   }
 
   return (
-    <div>
-      <h1>New Quest</h1>
-      {errorsDiv}
-      <QuestNewForm
-        handleChange={handleChange}
-        questFields={props.questFields}
-      />
-      {stepForms}
-      <button onClick={addStep}>Add step</button>
-      <button onClick={handleSubmit}>Create Quest</button>
-    </div>
+    <Grid container direction="column" spacing={1}>
+      <Grid item>
+        <Typography variant="h3">Create a Quest</Typography>
+      </Grid>
+
+      {errorMessages}
+
+      <Grid item>
+        <QuestNewForm handleChange={handleChange} questFields={questFields} />
+      </Grid>
+
+      <Grid item>{stepForms}</Grid>
+
+      <Grid item>
+        <Button variant="contained" color="secondary" onClick={addStep}>
+          Add another location
+        </Button>
+      </Grid>
+
+      <Grid item>
+        <Button variant="contained" color="primary" onClick={handleSubmit}>
+          Create Quest
+        </Button>
+      </Grid>
+    </Grid>
   );
 };
 
