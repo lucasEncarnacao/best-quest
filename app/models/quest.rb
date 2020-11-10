@@ -7,6 +7,7 @@ class Quest < ApplicationRecord
   has_many :conquerers, through: :completion_times, source: :user
   has_many :reviews
   has_many :reviewers, through: :reviews, source: :user
+  has_many :lobbies
 
   validates :name, presence: true, uniqueness: true
   validates :category, presence: true
