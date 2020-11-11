@@ -11,7 +11,7 @@ class Api::V1::LobbiesController < ApiController
   end
 
   def show
-    lobby = Lobby.find(params["lobby_id"])
+    lobby = Lobby.find_by(code: params["id"])
 
     if !lobby.nil?
       render json: lobby

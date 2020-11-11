@@ -5,7 +5,6 @@ import QuestsShowPage from "./QuestShowPage";
 import QuestsNewPage from "./QuestNewPage";
 import QuestActivePage from "./QuestActivePage";
 import QuestCompletePage from "./QuestCompleteView";
-import QuestGroupPage from "./QuestGroupPage";
 
 const Routes = (props) => {
   return (
@@ -16,7 +15,6 @@ const Routes = (props) => {
       <Route exact path="/quests/:id" component={QuestsShowPage} />
       <Route exact path="/quests/:id/active" component={QuestActivePage} />
       <Route exact path="/quests/:id/complete" component={QuestCompletePage} />
-      <Route exact path="/quests/:id/group" component={QuestGroupPage} />
     </Switch>
   );
 };

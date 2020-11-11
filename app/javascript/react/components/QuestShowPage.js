@@ -66,7 +66,10 @@ const QuestShowPage = (props) => {
             variant="contained"
             color="primary"
             component={RouterLink}
-            to={`/quests/${questId}/active`}
+            to={{
+              pathname: `/quests/${questId}/active`,
+              state: { group: false },
+            }}
           >
             Quest Solo
           </Button>
@@ -76,7 +79,10 @@ const QuestShowPage = (props) => {
             variant="contained"
             color="primary"
             component={RouterLink}
-            to={`/quests/${questId}/group`}
+            to={{
+              pathname: `/quests/${questId}/active`,
+              state: { group: true },
+            }}
           >
             Quest with Friends
           </Button>
