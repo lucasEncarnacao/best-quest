@@ -24,6 +24,9 @@ const QuestNewPage = (props) => {
   let stepForms = null;
   let errorMessages = null;
 
+  App.LobbyChannel?.unsubscribe();
+  App.cable?.disconnect();
+
   const handleChange = (event) => {
     setQuestFields({
       ...questFields,

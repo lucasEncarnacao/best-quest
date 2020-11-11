@@ -9,10 +9,10 @@ const QuestShowPage = (props) => {
     name: "",
     description: "",
   });
-  const quest_id = props.match.params.id;
+  const questId = props.match.params.id;
 
   useEffect(() => {
-    fetch(`/api/v1/quests/${quest_id}`)
+    fetch(`/api/v1/quests/${questId}`)
       .then((response) => {
         if (response.ok) {
           return response;
@@ -66,7 +66,10 @@ const QuestShowPage = (props) => {
             variant="contained"
             color="primary"
             component={RouterLink}
-            to={`/quests/${quest_id}/active`}
+            to={{
+              pathname: `/quests/${questId}/active`,
+              state: { group: false },
+            }}
           >
             Quest Solo
           </Button>
@@ -76,7 +79,10 @@ const QuestShowPage = (props) => {
             variant="contained"
             color="primary"
             component={RouterLink}
-            to={`/quests/${quest_id}/active`}
+            to={{
+              pathname: `/quests/${questId}/active`,
+              state: { group: true },
+            }}
           >
             Quest with Friends
           </Button>

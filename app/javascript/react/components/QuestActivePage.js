@@ -4,6 +4,7 @@ import HintSection from "./HintSection";
 import SolvingView from "./SolvingView";
 import SolvedView from "./SolvedView";
 import QuestCompleteView from "./QuestCompleteView";
+import QuestGroupView from "./QuestGroupView";
 
 const QuestActivePage = (props) => {
   const [steps, setSteps] = useState([]);
@@ -16,6 +17,9 @@ const QuestActivePage = (props) => {
   const [shouldRedirect, setShouldRedirect] = useState(false);
   const [completionTimeId, setCompletionTimeId] = useState(0);
   const [completionTime, setCompletionTime] = useState("");
+  const [shouldShowGroupView, setShouldShowGroupView] = useState(
+    props.location?.state?.group
+  );
   const questId = props.match.params.id;
   let view = null;
   let hintSection = null;
@@ -62,6 +66,14 @@ const QuestActivePage = (props) => {
       .catch((error) => console.error(`Error in fetch: ${error.message}`));
   }, []);
 
+  const pingLobby = (extraPayload) => {
+    let nextStepNum = currentStepIndex + 1 + 1;
+    App.LobbyChannel?.send({
+      step_num: nextStepNum,
+      ...extraPayload,
+    });
+  };
+
   const handleSuccess = (position) => {
     const locationPayload = {
       quest_id: questId,
@@ -92,8 +104,7 @@ const QuestActivePage = (props) => {
       .then((locIsValid) => {
         if (locIsValid) {
           setSolving(false);
-          setError("");
-          setBadLocCounter(0);
+          pingLobby();
         } else {
           setShouldShowHintSection(true);
           setError("Sorry, keep looking!");
@@ -153,6 +164,7 @@ const QuestActivePage = (props) => {
 
   const giveUpClick = () => {
     setSolving(false);
+    pingLobby();
   };
 
   const addNewReview = (formPayload) => {
@@ -179,6 +191,40 @@ const QuestActivePage = (props) => {
         setShouldRedirect(true);
       })
       .catch((error) => console.error(`Error in fetch: ${error.message}`));
+  };
+
+  const handleResponse = (data) => {
+    if (data.start) {
+      //just starting quest
+      setShouldShowGroupView(false);
+    } else {
+      if (data.completed) {
+        setCompleted(true);
+      } else {
+        setSolving(false);
+      }
+    }
+  };
+
+  const setUpLobbyChannel = (lobbyId) => {
+    App.LobbyChannel = App.cable.subscriptions.create(
+      {
+        channel: "LobbyChannel",
+        lobby_id: lobbyId,
+      },
+      {
+        connected: () =>
+          console.log(`LobbyChannel "lobby_${lobbyId}" connected`),
+        disconnected: () => console.log("LobbyChannel disconnected"),
+        received: (data) => handleResponse(data),
+      }
+    );
+  };
+
+  const startQuest = () => {
+    setShouldShowGroupView(false);
+
+    pingLobby({ start: true });
   };
 
   if (shouldRedirect) {
@@ -220,7 +266,17 @@ const QuestActivePage = (props) => {
     );
   }
 
-  return <div>{view}</div>;
+  if (shouldShowGroupView) {
+    view = (
+      <QuestGroupView
+        questId={questId}
+        setUpLobbyChannel={setUpLobbyChannel}
+        startQuest={startQuest}
+      />
+    );
+  }
+
+  return view;
 };
 
 export default QuestActivePage;

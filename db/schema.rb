@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_06_203359) do
+ActiveRecord::Schema.define(version: 2020_11_09_195632) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,16 @@ ActiveRecord::Schema.define(version: 2020_11_06_203359) do
     t.datetime "end_time"
     t.index ["quest_id"], name: "index_completion_times_on_quest_id"
     t.index ["user_id"], name: "index_completion_times_on_user_id"
+  end
+
+  create_table "lobbies", force: :cascade do |t|
+    t.bigint "quest_id", null: false
+    t.string "code", null: false
+    t.integer "step_num", default: 1, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["code"], name: "index_lobbies_on_code", unique: true
+    t.index ["quest_id"], name: "index_lobbies_on_quest_id"
   end
 
   create_table "quests", force: :cascade do |t|

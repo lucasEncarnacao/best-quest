@@ -15,10 +15,12 @@ Rails.application.routes.draw do
         resources :steps, only: [:index]
         resources :reviews, only: [:create]
         resources :completion_times, only: [:create]
+        resources :lobbies, only: [:create]
       end
 
       resources :completion_times, only: [:update]
       resources :check_locs, only: [:create]
+      resources :lobbies, only: [:show]
     end
   end
 end
