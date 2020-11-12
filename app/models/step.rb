@@ -1,4 +1,6 @@
 class Step < ApplicationRecord
+  mount_uploader :photo, StepPhotoUploader
+  
   belongs_to :quest
 
   validates :step_num, presence: true

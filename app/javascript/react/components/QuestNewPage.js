@@ -17,6 +17,7 @@ const QuestNewPage = (props) => {
       clue: "",
       hint: "",
       description: "",
+      photo: "",
     },
   ]);
   const [shouldRedirect, setShouldRedirect] = useState(false);
@@ -49,17 +50,32 @@ const QuestNewPage = (props) => {
     setStepsFields(updatedStepsArray);
   };
 
+  const compileBody = () => {
+    let body = new FormData();
+
+    Object.keys(questFields).forEach((key) =>
+      body.append(key, questFields[key])
+    );
+
+    stepsFields.forEach((step, index) => {
+      Object.keys(step).forEach((key) =>
+        body.append(`${key}_${index}`, step[key])
+      );
+    });
+
+    return body;
+  };
+
   const handleSubmit = () => {
-    const formPayLoad = { quest: questFields, steps: stepsFields };
     const userToken = localStorage.getItem("userToken");
+
+    let body = compileBody();
 
     fetch("/api/v1/quests", {
       credentials: "same-origin",
       method: "POST",
-      body: JSON.stringify(formPayLoad),
+      body: body,
       headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
         Authorization: `Bearer ${userToken}`,
       },
     })
@@ -92,6 +108,7 @@ const QuestNewPage = (props) => {
       clue: "",
       hint: "",
       description: "",
+      photo: "",
     };
 
     setStepsFields([...stepsFields, newStepField]);

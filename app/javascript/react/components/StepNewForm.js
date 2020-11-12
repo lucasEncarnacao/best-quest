@@ -8,6 +8,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import Dropzone from "react-dropzone";
 import MapContainer from "./MapContainer";
 
 const StepNewForm = (props) => {
@@ -29,6 +30,10 @@ const StepNewForm = (props) => {
     props.handleChange(props.stepNum - 1, ["lat", "lng"], [lat, lng]);
   };
 
+  const passUpFileUpload = (acceptedFiles) => {
+    props.handleChange(props.stepNum - 1, ["photo"], [acceptedFiles[0]]);
+  };
+
   return (
     <Accordion expanded={expanded} onChange={handleAccordionChange}>
       <AccordionSummary expandIcon={<ExpandMoreIcon />}>
@@ -41,6 +46,19 @@ const StepNewForm = (props) => {
             <Grid item>
               <MapContainer handleChange={passUpMapChange} />
             </Grid>
+
+            <Dropzone onDrop={passUpFileUpload}>
+              {({ getRootProps, getInputProps }) => (
+                <section>
+                  <div {...getRootProps()}>
+                    <input {...getInputProps()} />
+                    <Typography>
+                      Drag 'n' drop some files here, or click to select files
+                    </Typography>
+                  </div>
+                </section>
+              )}
+            </Dropzone>
 
             <Grid item>
               <TextField
