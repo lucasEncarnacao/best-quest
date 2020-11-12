@@ -6,15 +6,14 @@ RSpec.describe Api::V1::CompletionTimesController, type: :controller do
 
   describe "POST#create" do
     it "creates a completion time record" do
-      sign_in test_user
+      request.headers['Authorization'] = "Bearer " + JWT.encode({user_id: test_user.id}, ENV["ENCODER_KEY"])
       prev_count = CompletionTime.count
       post(:create, params: { quest_id: test_quest.id }, as: :json)
       expect(CompletionTime.count).to eq(prev_count + 1)
     end
 
     it "sets the start_time to the current time" do
-      sign_in test_user
-
+      request.headers['Authorization'] = "Bearer " + JWT.encode({user_id: test_user.id}, ENV["ENCODER_KEY"])
       post(:create, params: { quest_id: test_quest.id }, as: :json)
       expect(CompletionTime.last.start_time).to_not eq(nil)
       expect(CompletionTime.last.end_time).to eq(nil)
@@ -22,8 +21,7 @@ RSpec.describe Api::V1::CompletionTimesController, type: :controller do
     end
 
     it "returns the id of the created record" do
-      sign_in test_user
-
+      request.headers['Authorization'] = "Bearer " + JWT.encode({user_id: test_user.id}, ENV["ENCODER_KEY"])
       post(:create, params: { quest_id: test_quest.id }, as: :json)
       returned_json = JSON.parse(response.body)
       expect(response.status).to eq 200
@@ -35,8 +33,7 @@ RSpec.describe Api::V1::CompletionTimesController, type: :controller do
     end
 
     it "does not create a duplicate record if one already exists" do
-      sign_in test_user
-
+      request.headers['Authorization'] = "Bearer " + JWT.encode({user_id: test_user.id}, ENV["ENCODER_KEY"])
       prev_count = CompletionTime.count
       post(:create, params: { quest_id: test_quest.id }, as: :json)
       expect(CompletionTime.count).to eq(prev_count + 1)
@@ -45,8 +42,7 @@ RSpec.describe Api::V1::CompletionTimesController, type: :controller do
     end
 
     it "does not overwrite the start_time of the duplicate record" do
-      sign_in test_user
-
+      request.headers['Authorization'] = "Bearer " + JWT.encode({user_id: test_user.id}, ENV["ENCODER_KEY"])
       post(:create, params: { quest_id: test_quest.id }, as: :json)
       old_time = CompletionTime.last.start_time
       sleep(1)

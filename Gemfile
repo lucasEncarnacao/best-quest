@@ -50,9 +50,10 @@ gem 'factory_bot', group: [:development, :test]
 gem 'database_cleaner', group: [:development, :test]
 gem 'valid_attribute', group: [:development, :test]
 gem 'shoulda-matchers', group: [:development, :test], require: false
-gem 'devise'
 gem 'webpacker', '~> 3.3'
-gem "active_model_serializers"
-gem "haversine"
+gem 'active_model_serializers'
+gem 'haversine'
 gem 'redis', '~> 4.0'
 gem 'warden'
+gem 'jwt'
+gem 'bcrypt'
