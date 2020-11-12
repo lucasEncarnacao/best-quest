@@ -42,12 +42,14 @@ const QuestActivePage = (props) => {
       .catch((error) => console.error(`Error in fetch: ${error.message}`));
 
     //start quest timer
+    const userToken = localStorage.getItem("userToken");
     fetch(`/api/v1/quests/${questId}/completion_times`, {
       credentials: "same-origin",
       method: "POST",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
+        Authorization: `Bearer ${userToken}`,
       },
     })
       .then((response) => {
@@ -168,6 +170,7 @@ const QuestActivePage = (props) => {
   };
 
   const addNewReview = (formPayload) => {
+    const userToken = localStorage.getItem("userToken");
     fetch(`/api/v1/quests/${questId}/reviews`, {
       credentials: "same-origin",
       method: "POST",
@@ -175,6 +178,7 @@ const QuestActivePage = (props) => {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
+        Authorization: `Bearer ${userToken}`,
       },
     })
       .then((response) => {

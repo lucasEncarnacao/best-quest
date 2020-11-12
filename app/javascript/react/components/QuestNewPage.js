@@ -50,7 +50,8 @@ const QuestNewPage = (props) => {
   };
 
   const handleSubmit = () => {
-    let formPayLoad = { quest: questFields, steps: stepsFields };
+    const formPayLoad = { quest: questFields, steps: stepsFields };
+    const userToken = localStorage.getItem("userToken");
 
     fetch("/api/v1/quests", {
       credentials: "same-origin",
@@ -59,6 +60,7 @@ const QuestNewPage = (props) => {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
+        Authorization: `Bearer ${userToken}`,
       },
     })
       .then((response) => {

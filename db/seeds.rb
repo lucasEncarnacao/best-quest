@@ -1,4 +1,4 @@
-u1 = User.find_or_initialize_by(username: "quester", email: "user@fake.com")
+u1 = User.find_or_initialize_by(username: "quester")
 u1.password =  ENV["USER_PASSWORD"]
 u1.save!
 

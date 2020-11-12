@@ -11,7 +11,7 @@ class Api::V1::QuestsController < ApiController
   def create
     quest = Quest.new(quest_params)
     quest.owner = current_user
-
+    
     steps = steps_params.map.with_index do |step_params, index|
       new_step = Step.new(step_params)
       new_step.step_num = index + 1

@@ -49,7 +49,7 @@ RSpec.describe Api::V1::QuestsController, type: :controller do
       expect(returned_json["quest"]["name"]).to eq "Quest 1"
       expect(returned_json["quest"]["category"]).to eq "art"
       expect(returned_json["quest"]["description"]).to eq "Description 1"
-      expect(returned_json["quest"]["ownerName"]).to eq test_user.username
+      expect(returned_json["quest"]["owner"]["username"]).to eq test_user.username
       expect(returned_json["quest"]["reviews"]).to be_kind_of(Array)
     end
   end
@@ -82,15 +82,14 @@ RSpec.describe Api::V1::QuestsController, type: :controller do
     }
 
     it "creates a new quest with all steps" do
-      sign_in test_user
+      request.headers['Authorization'] = "Bearer " + JWT.encode({user_id: test_user.id}, ENV["ENCODER_KEY"])
       prev_count = Quest.count
       post(:create, params: post_json, as: :json)
       expect(Quest.count).to eq(prev_count + 1)
     end
 
     it "returns the json of the newly posted quest" do
-      sign_in test_user
-  
+      request.headers['Authorization'] = "Bearer " + JWT.encode({user_id: test_user.id}, ENV["ENCODER_KEY"])  
       post(:create, params: post_json, as: :json)
       returned_json = JSON.parse(response.body)
       expect(response.status).to eq 200
@@ -122,8 +121,7 @@ RSpec.describe Api::V1::QuestsController, type: :controller do
           ]
         }
 
-        sign_in test_user
-    
+        request.headers['Authorization'] = "Bearer " + JWT.encode({user_id: test_user.id}, ENV["ENCODER_KEY"])
         post(:create, params: bad_post_json, as: :json)
         returned_json = JSON.parse(response.body)
         expect(response.status).to eq 200
@@ -154,8 +152,7 @@ RSpec.describe Api::V1::QuestsController, type: :controller do
           ]
         }
 
-        sign_in test_user
-    
+        request.headers['Authorization'] = "Bearer " + JWT.encode({user_id: test_user.id}, ENV["ENCODER_KEY"])
         post(:create, params: bad_post_json, as: :json)
         returned_json = JSON.parse(response.body)
         expect(response.status).to eq 200

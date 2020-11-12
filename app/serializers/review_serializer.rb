@@ -1,7 +1,5 @@
 class ReviewSerializer < ActiveModel::Serializer
-  attributes :id, :rating, :comment, :username
+  attributes :id, :rating, :comment
 
-  def username
-    object.user.username
-  end
+  belongs_to :user
 end

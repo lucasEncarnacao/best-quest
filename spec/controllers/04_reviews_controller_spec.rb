@@ -13,15 +13,14 @@ RSpec.describe Api::V1::ReviewsController, type: :controller do
     }
 
     it "creates a new review" do
-      sign_in test_user
+      request.headers['Authorization'] = "Bearer " + JWT.encode({user_id: test_user.id}, ENV["ENCODER_KEY"])
       prev_count = Review.count
       post(:create, params: { review: post_json, quest_id: test_quest.id }, as: :json)
       expect(Review.count).to eq(prev_count + 1)
     end
 
     it "returns the json of the newly posted review" do
-      sign_in test_user
-
+      request.headers['Authorization'] = "Bearer " + JWT.encode({user_id: test_user.id}, ENV["ENCODER_KEY"])
       post(:create, params: { review: post_json, quest_id: test_quest.id }, as: :json)
       returned_json = JSON.parse(response.body)
       expect(response.status).to eq 200
@@ -31,7 +30,7 @@ RSpec.describe Api::V1::ReviewsController, type: :controller do
       expect(returned_json).to_not be_kind_of(Array)
       expect(returned_json["review"]["rating"]).to eq 5
       expect(returned_json["review"]["comment"]).to eq "this is a comment"
-      expect(returned_json["review"]["username"]).to eq test_user.username
+      expect(returned_json["review"]["user"]["username"]).to eq test_user.username
     end
   end
 end
