@@ -257,6 +257,7 @@ const QuestActivePage = (props) => {
       <SolvedView
         description={steps[currentStepIndex]?.description}
         nextClueClick={nextClueClick}
+        photo={steps[currentStepIndex]?.photo?.url}
       />
     );
   }

@@ -13,6 +13,10 @@ const SolvedView = (props) => {
       </Grid>
 
       <Grid item>
+        <img src={props.photo} alt="Location Answer Photo" />
+      </Grid>
+
+      <Grid item>
         <Button
           variant="contained"
           color="primary"
