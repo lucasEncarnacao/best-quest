@@ -7,6 +7,7 @@ class Step < ApplicationRecord
   validates :step_num, uniqueness: { scope: :quest_id }
   validates :lat, numericality: true
   validates :lng, numericality: true
+  validates :answer, presence: true
   validates :clue, presence: true
   validates :hint, presence: true
   validates :description, presence: true

@@ -16,6 +16,7 @@ FactoryBot.define do
     sequence(:step_num) { |n| n }
     lat { 10.11 }
     lng { 11.12 }
+    sequence(:answer) { |n| "answer #{n}" }
     sequence(:clue) { |n| "clue #{n}" }
     sequence(:hint) { |n| "hint #{n}" }
     sequence(:description) { |n| "description #{n}" }

@@ -3,11 +3,18 @@ import { Link as RouterLink } from "react-router-dom";
 import { Button, Divider, Grid, Typography } from "@material-ui/core";
 import ReviewsList from "./ReviewsList";
 import CategoryIcon from "./CategoryIcon";
+import ReadOnlyRating from "./ReadOnlyRating";
 
 const QuestShowPage = (props) => {
   const [quest, setQuest] = useState({
     name: "",
+    category: "",
     description: "",
+    avgRating: null,
+    avgTime: "",
+    stepCount: 0,
+    owner: {},
+    reviews: [],
   });
   const questId = props.match.params.id;
 
@@ -36,7 +43,7 @@ const QuestShowPage = (props) => {
         <Grid item>
           <Typography variant="h2">{quest.name}</Typography>
         </Grid>
-        <Typography variant="h6">Avg Rating: 4.5</Typography>
+        <ReadOnlyRating rating={quest.avgRating} />
       </Grid>
 
       <br />
@@ -47,13 +54,10 @@ const QuestShowPage = (props) => {
         </Grid>
         <Grid item xs={12} md={6} container>
           <Grid item xs={12}>
-            <Typography variant="h5"># of Locations: 5</Typography>
+            <Typography variant="h5">Locations: {quest.stepCount}</Typography>
           </Grid>
           <Grid item xs={12}>
-            <Typography variant="h5">Avg Length: 1 hr 23 min</Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography variant="h5">Number of conquerers: 41</Typography>
+            <Typography variant="h5">Avg Length: {quest.avgTime}</Typography>
           </Grid>
         </Grid>
       </Grid>
@@ -91,7 +95,8 @@ const QuestShowPage = (props) => {
 
       <br />
 
-      <Typography variant="h6">Reviews (203) - Avg Rating: 4.5</Typography>
+      <Typography variant="h6">Reviews ({quest.reviews.length}) -</Typography>
+      <ReadOnlyRating rating={quest.avgRating} />
       <Divider />
       <ReviewsList reviews={quest.reviews} />
     </>

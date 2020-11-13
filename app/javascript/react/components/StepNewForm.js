@@ -37,12 +37,25 @@ const StepNewForm = (props) => {
   return (
     <Accordion expanded={expanded} onChange={handleAccordionChange}>
       <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-        <Typography variant="h5">Location {props.stepNum}</Typography>
+        <Typography variant="h5">
+          Location {props.stepNum}: {props.stepFields?.answer}
+        </Typography>
       </AccordionSummary>
 
       <AccordionDetails>
         <form autoComplete="off" style={{ width: "100%" }}>
           <Grid container direction="column" spacing={1}>
+            <Grid item>
+              <TextField
+                fullWidth
+                label="Answer"
+                name="answer"
+                helperText="Name describing clue location answer"
+                onChange={passUpChange}
+                value={props.stepFields?.answer}
+              />
+            </Grid>
+
             <Grid item>
               <MapContainer handleChange={passUpMapChange} />
             </Grid>
@@ -67,7 +80,7 @@ const StepNewForm = (props) => {
                 name="clue"
                 helperText="Clue that leads the player to the location"
                 onChange={passUpChange}
-                value={props.questFields?.clue}
+                value={props.stepFields?.clue}
               />
             </Grid>
 
@@ -78,7 +91,7 @@ const StepNewForm = (props) => {
                 name="hint"
                 helperText="Helpful hint if players get stuck"
                 onChange={passUpChange}
-                value={props.questFields?.hint}
+                value={props.stepFields?.hint}
               />
             </Grid>
 
@@ -89,7 +102,7 @@ const StepNewForm = (props) => {
                 name="description"
                 helperText="Insightful description of the answer location"
                 onChange={passUpChange}
-                value={props.questFields?.description}
+                value={props.stepFields?.description}
               />
             </Grid>
           </Grid>

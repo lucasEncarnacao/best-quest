@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_12_013401) do
+ActiveRecord::Schema.define(version: 2020_11_13_201050) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -70,6 +70,7 @@ ActiveRecord::Schema.define(version: 2020_11_12_013401) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "photo"
+    t.string "answer", null: false
     t.index ["quest_id", "step_num"], name: "index_steps_on_quest_id_and_step_num", unique: true
     t.index ["quest_id"], name: "index_steps_on_quest_id"
   end

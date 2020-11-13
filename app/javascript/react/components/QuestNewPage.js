@@ -14,6 +14,7 @@ const QuestNewPage = (props) => {
     {
       lat: "",
       lng: "",
+      answer: "",
       clue: "",
       hint: "",
       description: "",
@@ -105,6 +106,7 @@ const QuestNewPage = (props) => {
     const newStepField = {
       lat: "",
       lng: "",
+      answer: "",
       clue: "",
       hint: "",
       description: "",

@@ -46,7 +46,7 @@ class Api::V1::QuestsController < ApiController
 
   def steps_params
     params_array = []
-    accepted_keys = ["lat", "lng", "clue", "hint", "description", "photo"]
+    accepted_keys = ["lat", "lng", "answer", "clue", "hint", "description", "photo"]
     # convert params from {"lat_0": 123, "lat_1": 234} to [{lat: 123}, {lat: 234}]
     params.keys.each do |key|
       keyStr = key.split("_").first
