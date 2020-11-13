@@ -57,39 +57,31 @@ RSpec.describe Api::V1::QuestsController, type: :controller do
   describe "POST#create" do
     let!(:post_json) { 
       {
-        quest: {
-          name: "Quest Name",
-          category: "art",
-          description: "This quest is so cool",
-        },
-        steps: [
-          {
-            lat: 10.123,
-            lng: 10.321,
-            clue: "This is the clue",
-            hint: "Here's a hint",
-            description: "This is a cool spot",
-          },
-          {
-            lat: 20.123,
-            lng: 30.321,
-            clue: "This is the second clue",
-            hint: "Here's a second hint",
-            description: "This is another cool spot",
-          },
-        ]
+        name: "Quest Name",
+        category: "art",
+        description: "This quest is so cool",
+        lat_0: 10.123,
+        lng_0: 10.321,
+        clue_0: "This is the clue",
+        hint_0: "Here's a hint",
+        description_0: "This is a cool spot",
+        lat_1: 20.123,
+        lng_1: 30.321,
+        clue_1: "This is the second clue",
+        hint_1: "Here's a second hint",
+        description_1: "This is another cool spot",
       }
     }
 
     it "creates a new quest with all steps" do
-      request.headers['Authorization'] = "Bearer " + JWT.encode({user_id: test_user.id}, ENV["ENCODER_KEY"])
+      request.headers['Authorization'] = "Bearer " + JWT.encode({ user_id: test_user.id }, ENV["ENCODER_KEY"])
       prev_count = Quest.count
       post(:create, params: post_json, as: :json)
       expect(Quest.count).to eq(prev_count + 1)
     end
 
     it "returns the json of the newly posted quest" do
-      request.headers['Authorization'] = "Bearer " + JWT.encode({user_id: test_user.id}, ENV["ENCODER_KEY"])  
+      request.headers['Authorization'] = "Bearer " + JWT.encode({ user_id: test_user.id} , ENV["ENCODER_KEY"])  
       post(:create, params: post_json, as: :json)
       returned_json = JSON.parse(response.body)
       expect(response.status).to eq 200
@@ -105,20 +97,14 @@ RSpec.describe Api::V1::QuestsController, type: :controller do
     context "User doesn't input quest info" do
       it "returns errors if the input is not valid" do
         bad_post_json = {
-          quest: {
-            name: "",
-            category: "",
-            description: "",
-          },
-          steps: [
-            {
-              lat: "",
-              lng: "",
-              clue: "",
-              hint: "",
-              description: "",
-            },
-          ]
+          name: "",
+          category: "",
+          description: "",
+          lat_0: "",
+          lng_0: "",
+          clue_0: "",
+          hint_0: "",
+          description_0: "",
         }
 
         request.headers['Authorization'] = "Bearer " + JWT.encode({user_id: test_user.id}, ENV["ENCODER_KEY"])
@@ -136,20 +122,14 @@ RSpec.describe Api::V1::QuestsController, type: :controller do
     context "User doesn't input steps info" do
       it "returns errors if the input is not valid" do
         bad_post_json = {
-          quest: {
-            name: "Name",
-            category: "art",
-            description: "description",
-          },
-          steps: [
-            {
-              lat: "",
-              lng: "",
-              clue: "",
-              hint: "",
-              description: "",
-            },
-          ]
+          name: "Name",
+          category: "art",
+          description: "description",
+          lat_0: "",
+          lng_0: "",
+          clue_0: "",
+          hint_0: "",
+          description_0: "",
         }
 
         request.headers['Authorization'] = "Bearer " + JWT.encode({user_id: test_user.id}, ENV["ENCODER_KEY"])

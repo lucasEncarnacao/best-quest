@@ -20,7 +20,7 @@ class Api::V1::QuestsController < ApiController
       new_step.quest = quest
       new_step
     end
-
+    
     if quest.valid?
       if steps.all?{|step| step.valid?}
         quest.save
@@ -29,7 +29,6 @@ class Api::V1::QuestsController < ApiController
         render json: quest, serializer: QuestShowSerializer
       else
         bad_steps = steps.select{|step| !step.valid?}
-
         error_messages = bad_steps.map {|bad_step| bad_step.errors.full_messages}
         
         render json: { errors: error_messages.flatten.to_sentence }
