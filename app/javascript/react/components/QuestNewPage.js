@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Redirect } from "react-router-dom";
 import { Button, Grid, Typography } from "@material-ui/core";
 import QuestNewForm from "./QuestNewForm";
 import StepNewForm from "./StepNewForm";
+import UserContext from "./UserContext";
 
 const QuestNewPage = (props) => {
+  const { currentUser } = useContext(UserContext);
   const [questFields, setQuestFields] = useState({
     name: "",
     category: "",
@@ -126,6 +128,10 @@ const QuestNewPage = (props) => {
       />
     );
   });
+
+  if (currentUser === "") {
+    return <Redirect to="/users/sign_in" />;
+  }
 
   if (shouldRedirect) {
     return <Redirect to="/" />;
