@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Redirect } from "react-router-dom";
 import HintSection from "./HintSection";
 import SolvingView from "./SolvingView";
 import SolvedView from "./SolvedView";
 import QuestCompleteView from "./QuestCompleteView";
 import QuestGroupView from "./QuestGroupView";
+import UserContext from "./UserContext";
 
 const QuestActivePage = (props) => {
+  const { currentUser } = useContext(UserContext);
   const [steps, setSteps] = useState([]);
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
   const [shouldShowHintSection, setShouldShowHintSection] = useState(false);
@@ -24,6 +26,10 @@ const QuestActivePage = (props) => {
   const questId = props.match.params.id;
   let view = null;
   let hintSection = null;
+
+  if (currentUser === "") {
+    return <Redirect to="/users/sign_in" />;
+  }
 
   useEffect(() => {
     fetch(`/api/v1/quests/${questId}/steps`)
