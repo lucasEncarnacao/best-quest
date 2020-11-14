@@ -2,18 +2,18 @@ import React, { useState } from "react";
 import UserContext from "./UserContext";
 
 const UserProvider = ({ children }) => {
-  const [username, setUsername] = useState("");
+  const [currentUser, setCurrentUser] = useState("");
 
   const signIn = (name) => {
-    setUsername(name);
+    setCurrentUser(name);
   };
 
   const signOut = () => {
-    setUsername("");
+    setCurrentUser("");
   };
 
   return (
-    <UserContext.Provider value={{ username, signIn, signOut }}>
+    <UserContext.Provider value={{ currentUser, signIn, signOut }}>
       {children}
     </UserContext.Provider>
   );

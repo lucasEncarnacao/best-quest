@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const TopBar = (props) => {
-  const { username, signIn, signOut } = useContext(UserContext);
+  const { currentUser, signIn, signOut } = useContext(UserContext);
   const classes = useStyles();
   let loginDisplay = null;
 
@@ -60,10 +60,10 @@ const TopBar = (props) => {
     signOut();
   };
 
-  if (username !== "") {
+  if (currentUser !== "") {
     loginDisplay = (
       <>
-        <Typography>{username}</Typography>
+        <Typography>{currentUser}</Typography>
         <Button color="inherit" onClick={handleSignOut}>
           Sign Out
         </Button>
