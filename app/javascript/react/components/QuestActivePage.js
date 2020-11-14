@@ -262,6 +262,8 @@ const QuestActivePage = (props) => {
         description={steps[currentStepIndex]?.description}
         nextClueClick={nextClueClick}
         photo={steps[currentStepIndex]?.photo?.url}
+        stepLat={steps[currentStepIndex]?.lat}
+        stepLng={steps[currentStepIndex]?.lng}
       />
     );
   }

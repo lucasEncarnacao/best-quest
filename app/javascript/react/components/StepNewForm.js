@@ -9,7 +9,7 @@ import {
 } from "@material-ui/core";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import Dropzone from "react-dropzone";
-import MapContainer from "./MapContainer";
+import MapNewContainer from "./MapNewContainer";
 
 const StepNewForm = (props) => {
   const [expanded, setExpanded] = useState(false);
@@ -57,7 +57,7 @@ const StepNewForm = (props) => {
             </Grid>
 
             <Grid item>
-              <MapContainer handleChange={passUpMapChange} />
+              <MapNewContainer handleChange={passUpMapChange} />
             </Grid>
 
             <Dropzone onDrop={passUpFileUpload}>
