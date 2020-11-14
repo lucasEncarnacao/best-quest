@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { Link as RouterLink } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { Link as RouterLink, Redirect } from "react-router-dom";
 import { Button, Divider, Grid, Typography } from "@material-ui/core";
 import ReviewsList from "./ReviewsList";
 import CategoryIcon from "./CategoryIcon";
 import ReadOnlyRating from "./ReadOnlyRating";
+import UserContext from "./UserContext";
 
 const QuestShowPage = (props) => {
+  const { currentUser } = useContext(UserContext);
   const [quest, setQuest] = useState({
     name: "",
     category: "",
@@ -17,6 +19,10 @@ const QuestShowPage = (props) => {
     reviews: [],
   });
   const questId = props.match.params.id;
+
+  if (currentUser === "") {
+    return <Redirect to="/users/sign_in" />;
+  }
 
   useEffect(() => {
     fetch(`/api/v1/quests/${questId}`)
