@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   root 'homes#index'
 
+  get '/how-to-play', to: 'homes#index'
   get '/quests', to: 'homes#index'
   get '/quests/:id', to: 'homes#index'
   get '/quests/:id/active', to: 'homes#index'
