@@ -1,9 +1,28 @@
 import React from "react";
-import { Button, Grid, Typography } from "@material-ui/core";
+import { Button, CircularProgress, Grid, Typography } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles((theme) => ({
+  buttonLoading: {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    marginTop: -12,
+    marginLeft: -12,
+  },
+}));
 
 const SolvingView = (props) => {
+  const classes = useStyles();
+  let buttonLoad = null;
   let errorMessage = null;
   let giveUpButton = null;
+
+  if (props.loading) {
+    buttonLoad = (
+      <CircularProgress size={24} className={classes.buttonLoading} />
+    );
+  }
 
   if (props.error !== "") {
     errorMessage = <Typography>{props.error}</Typography>;
@@ -30,8 +49,10 @@ const SolvingView = (props) => {
           variant="contained"
           color="primary"
           onClick={props.checkLocation}
+          disabled={props.loading}
         >
           Am I there yet?
+          {buttonLoad}
         </Button>
       </Grid>
 

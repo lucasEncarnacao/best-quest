@@ -13,6 +13,7 @@ const QuestActivePage = (props) => {
   const [solving, setSolving] = useState(true); //solving current step
   const [completed, setCompleted] = useState(false); //completed quest
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false); //check loc button load
   const [badLocCounter, setBadLocCounter] = useState(0); //controls showing give up button
   const [shouldRedirect, setShouldRedirect] = useState(false);
   const [completionTimeId, setCompletionTimeId] = useState(0);
@@ -112,6 +113,7 @@ const QuestActivePage = (props) => {
           setError("Sorry, keep looking!");
           setBadLocCounter(badLocCounter + 1);
         }
+        setLoading(false);
       })
       .catch((error) => console.error(`Error in fetch: ${error.message}`));
   };
@@ -125,6 +127,7 @@ const QuestActivePage = (props) => {
       enableHighAccuracy: true,
     });
 
+    setLoading(true);
     setError("");
   };
 
@@ -246,6 +249,7 @@ const QuestActivePage = (props) => {
       <SolvingView
         clue={steps[currentStepIndex]?.clue}
         error={error}
+        loading={loading}
         badLocCounter={badLocCounter}
         giveUpClick={giveUpClick}
         checkLocation={checkLocation}
