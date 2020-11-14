@@ -7,11 +7,14 @@ import QuestActivePage from "./QuestActivePage";
 import QuestCompletePage from "./QuestCompleteView";
 import SignUpPage from "./SignUpPage";
 import SignInPage from "./SignInPage";
+import HomePage from "./HomePage";
+import HowToPage from "./HowToPage";
 
 const Routes = (props) => {
   return (
     <Switch>
-      <Route exact path="/" component={QuestsIndexPage} />
+      <Route exact path="/" component={HomePage} />
+      <Route exact path="/how-to-play" component={HowToPage} />
       <Route exact path="/quests" component={QuestsIndexPage} />
       <Route exact path="/quests/new" component={QuestsNewPage} />
       <Route exact path="/quests/:id" component={QuestsShowPage} />
