@@ -1,5 +1,6 @@
 import React from "react";
 import { Button, Grid, Typography } from "@material-ui/core";
+import MapShowContainer from "./MapShowContainer";
 
 const SolvedView = (props) => {
   let photo = null;
@@ -19,6 +20,12 @@ const SolvedView = (props) => {
       </Grid>
 
       <Grid item>{photo}</Grid>
+
+      <Grid item container>
+        <Grid item xs>
+          <MapShowContainer stepLat={props.stepLat} stepLng={props.stepLng} />
+        </Grid>
+      </Grid>
 
       <Grid item>
         <Button
