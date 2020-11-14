@@ -1,13 +1,13 @@
 import React from "react";
 import { Card, CardContent, Grid, Typography } from "@material-ui/core";
+import ReadOnlyRating from "./ReadOnlyRating";
 
 const ReviewTile = (props) => {
-  const rating = props.review.rating;
-  const comment = props.review.comment;
+  const { rating, comment, ownerName } = props.review;
   let commentSection = null;
 
   if (comment !== null && comment !== "") {
-    commentSection = <Typography>Comment: {comment}</Typography>;
+    commentSection = <Typography>{comment}</Typography>;
   }
 
   return (
@@ -16,10 +16,10 @@ const ReviewTile = (props) => {
         <CardContent>
           <Grid container justify="space-between">
             <Grid item>
-              <Typography>Rating: {rating}</Typography>
+              <ReadOnlyRating rating={rating} />
             </Grid>
             <Grid item>
-              <Typography>Owner Name</Typography>
+              <Typography>{ownerName}</Typography>
             </Grid>
           </Grid>
           {commentSection}

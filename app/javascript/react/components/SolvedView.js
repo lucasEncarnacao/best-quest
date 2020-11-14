@@ -2,6 +2,12 @@ import React from "react";
 import { Button, Grid, Typography } from "@material-ui/core";
 
 const SolvedView = (props) => {
+  let photo = null;
+
+  if (props.photo !== null) {
+    photo = <img src={props.photo} alt="Location Answer Photo" />;
+  }
+
   return (
     <Grid container direction="column" alignItems="center" spacing={3}>
       <Grid item>
@@ -12,9 +18,7 @@ const SolvedView = (props) => {
         <Typography variant="h4">Description: {props.description}</Typography>
       </Grid>
 
-      <Grid item>
-        <img src={props.photo} alt="Location Answer Photo" />
-      </Grid>
+      <Grid item>{photo}</Grid>
 
       <Grid item>
         <Button

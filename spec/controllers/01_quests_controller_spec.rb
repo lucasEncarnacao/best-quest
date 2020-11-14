@@ -44,8 +44,7 @@ RSpec.describe Api::V1::QuestsController, type: :controller do
       expect(response.status).to eq 200
       expect(response.content_type).to eq("application/json")
 
-      expect(returned_json["quest"].length).to eq 6
-      expect(returned_json["quest"]["id"]).to eq first_quest.id
+      expect(returned_json["quest"].length).to eq 8
       expect(returned_json["quest"]["name"]).to eq "Quest 1"
       expect(returned_json["quest"]["category"]).to eq "art"
       expect(returned_json["quest"]["description"]).to eq "Description 1"
@@ -62,11 +61,13 @@ RSpec.describe Api::V1::QuestsController, type: :controller do
         description: "This quest is so cool",
         lat_0: 10.123,
         lng_0: 10.321,
+        answer_0: "This is the answer",
         clue_0: "This is the clue",
         hint_0: "Here's a hint",
         description_0: "This is a cool spot",
         lat_1: 20.123,
         lng_1: 30.321,
+        answer_1: "This is the second answer",
         clue_1: "This is the second clue",
         hint_1: "Here's a second hint",
         description_1: "This is another cool spot",
@@ -102,6 +103,7 @@ RSpec.describe Api::V1::QuestsController, type: :controller do
           description: "",
           lat_0: "",
           lng_0: "",
+          answer_0: "",
           clue_0: "",
           hint_0: "",
           description_0: "",
@@ -140,7 +142,7 @@ RSpec.describe Api::V1::QuestsController, type: :controller do
         
         expect(returned_json).to be_kind_of(Hash)
         expect(returned_json).to_not be_kind_of(Array)
-        expect(returned_json["errors"]).to eq "Lat is not a number, Lng is not a number, Clue can't be blank, Hint can't be blank, and Description can't be blank"
+        expect(returned_json["errors"]).to eq "Lat is not a number, Lng is not a number, Answer can't be blank, Clue can't be blank, Hint can't be blank, and Description can't be blank"
       end
     end
   end

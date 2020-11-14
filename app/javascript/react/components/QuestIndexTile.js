@@ -8,8 +8,17 @@ import {
   Typography,
 } from "@material-ui/core";
 import CategoryIcon from "./CategoryIcon";
+import ReadOnlyRating from "./ReadOnlyRating";
 
 const QuestIndexTile = (props) => {
+  let avgTime = "";
+
+  if (props.quest.avgTime === null) {
+    avgTime = "No times";
+  } else {
+    avgTime = props.quest.avgTime;
+  }
+
   return (
     <Grid item xs={12} md={6} lg={4}>
       <Card>
@@ -22,15 +31,15 @@ const QuestIndexTile = (props) => {
                 <Typography>{props.quest.name}</Typography>
               </Grid>
 
-              <Typography>Owner name</Typography>
+              <Typography>{props.quest.owner?.username}</Typography>
             </Grid>
 
             <Grid container>
               <Grid item xs>
-                <Typography>Avg Rating: 4.5</Typography>
+                <ReadOnlyRating rating={props.quest.avgRating} />
               </Grid>
 
-              <Typography>Avg Length: 1 hr 32 min</Typography>
+              <Typography>{avgTime}</Typography>
             </Grid>
           </CardContent>
         </CardActionArea>

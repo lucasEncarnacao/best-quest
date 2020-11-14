@@ -30,7 +30,7 @@ RSpec.describe Api::V1::ReviewsController, type: :controller do
       expect(returned_json).to_not be_kind_of(Array)
       expect(returned_json["review"]["rating"]).to eq 5
       expect(returned_json["review"]["comment"]).to eq "this is a comment"
-      expect(returned_json["review"]["user"]["username"]).to eq test_user.username
+      expect(returned_json["review"]["ownerName"]).to eq test_user.username
     end
   end
 end

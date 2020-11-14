@@ -95,7 +95,6 @@ const QuestGroupView = (props) => {
 
   return (
     <Grid container>
-      <Typography>Hello</Typography>
       <Button variant="contained" color="primary" onClick={createLobbyClick}>
         Create Lobby
       </Button>
