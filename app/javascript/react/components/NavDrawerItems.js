@@ -12,7 +12,7 @@ const NavDrawerItems = (props) => {
       />
       <NavDrawerItem
         text="How to Play"
-        link="/"
+        link="/how-to-play"
         handleDrawerToggle={props.handleDrawerToggle}
       />
       <NavDrawerItem
@@ -23,11 +23,6 @@ const NavDrawerItems = (props) => {
       <NavDrawerItem
         text="Create a Quest"
         link="/quests/new"
-        handleDrawerToggle={props.handleDrawerToggle}
-      />
-      <NavDrawerItem
-        text="My Quests"
-        link="/"
         handleDrawerToggle={props.handleDrawerToggle}
       />
     </List>
