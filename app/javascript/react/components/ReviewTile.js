@@ -7,19 +7,19 @@ const ReviewTile = (props) => {
   let commentSection = null;
 
   if (comment !== null && comment !== "") {
-    commentSection = <Typography>{comment}</Typography>;
+    commentSection = <Typography variant="h6">{comment}</Typography>;
   }
 
   return (
     <Grid item xs={10}>
       <Card>
         <CardContent>
-          <Grid container justify="space-between">
+          <Grid container justify="space-between" alignItems="baseline">
             <Grid item>
               <ReadOnlyRating rating={rating} />
             </Grid>
             <Grid item>
-              <Typography>{ownerName}</Typography>
+              <Typography variant="h6">{ownerName}</Typography>
             </Grid>
           </Grid>
           {commentSection}
