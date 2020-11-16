@@ -8,8 +8,8 @@ import {
   Typography,
 } from "@material-ui/core";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import Dropzone from "react-dropzone";
 import MapNewContainer from "./MapNewContainer";
+import DropzoneContainer from "./DropzoneContainer";
 
 const StepNewForm = (props) => {
   const [expanded, setExpanded] = useState(false);
@@ -60,18 +60,13 @@ const StepNewForm = (props) => {
               <MapNewContainer handleChange={passUpMapChange} />
             </Grid>
 
-            <Dropzone onDrop={passUpFileUpload}>
-              {({ getRootProps, getInputProps }) => (
-                <section>
-                  <div {...getRootProps()}>
-                    <input {...getInputProps()} />
-                    <Typography>
-                      Drag 'n' drop some files here, or click to select files
-                    </Typography>
-                  </div>
-                </section>
-              )}
-            </Dropzone>
+            <Grid item>
+              <Typography>Photo</Typography>
+              <DropzoneContainer
+                passUpFileUpload={passUpFileUpload}
+                photo={props.stepFields?.photo}
+              />
+            </Grid>
 
             <Grid item>
               <TextField

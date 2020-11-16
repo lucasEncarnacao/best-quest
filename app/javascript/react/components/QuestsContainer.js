@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Grid } from "@material-ui/core";
+import { Box, Grid } from "@material-ui/core";
 import QuestIndexTile from "./QuestIndexTile";
 
 const QuestsContainer = (props) => {
@@ -28,9 +28,11 @@ const QuestsContainer = (props) => {
   });
 
   return (
-    <Grid container spacing={2}>
-      {questList}
-    </Grid>
+    <Box p={2}>
+      <Grid container alignItems="stretch" spacing={2}>
+        {questList}
+      </Grid>
+    </Box>
   );
 };
 

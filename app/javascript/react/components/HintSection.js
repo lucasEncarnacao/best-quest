@@ -10,10 +10,15 @@ const HintSection = (props) => {
   };
 
   if (show) {
-    hintSection = <Typography variant="h5">Hint: {props.hint}</Typography>;
+    hintSection = <Typography variant="h4">Hint: {props.hint}</Typography>;
   } else {
     hintSection = (
-      <Button variant="contained" color="secondary" onClick={showHint}>
+      <Button
+        variant="contained"
+        color="primary"
+        size="large"
+        onClick={showHint}
+      >
         Hint
       </Button>
     );

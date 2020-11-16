@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { Redirect } from "react-router-dom";
-import { Button, Link, TextField, Typography } from "@material-ui/core";
+import { Box, Button, Link, TextField, Typography } from "@material-ui/core";
 import UserContext from "./UserContext";
 
 const SignInPage = (props) => {
@@ -62,8 +62,10 @@ const SignInPage = (props) => {
   }
 
   return (
-    <>
-      <Typography>{error}</Typography>
+    <Box p={10} pt={6}>
+      <Typography variant="h3">Sign In</Typography>
+      <Typography color="error">{error}</Typography>
+
       <form onSubmit={handleSubmit} autoComplete="off">
         <TextField
           fullWidth
@@ -80,15 +82,22 @@ const SignInPage = (props) => {
           onChange={handleChange}
           value={formFields.password}
         />
-        <Button type="submit" variant="contained" color="primary">
-          Sign In
-        </Button>
+        <Box py={2}>
+          <Button
+            type="submit"
+            variant="contained"
+            color="secondary"
+            size="large"
+          >
+            Sign In
+          </Button>
+        </Box>
       </form>
 
       <Typography>
         <Link href="/users/sign_up">New User? Sign Up</Link>
       </Typography>
-    </>
+    </Box>
   );
 };
 

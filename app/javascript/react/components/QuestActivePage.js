@@ -253,6 +253,7 @@ const QuestActivePage = (props) => {
   if (solving) {
     view = (
       <SolvingView
+        stepNum={currentStepIndex + 1}
         clue={steps[currentStepIndex]?.clue}
         error={error}
         loading={loading}
@@ -265,6 +266,7 @@ const QuestActivePage = (props) => {
   } else {
     view = (
       <SolvedView
+        answer={steps[currentStepIndex]?.answer}
         description={steps[currentStepIndex]?.description}
         nextClueClick={nextClueClick}
         photo={steps[currentStepIndex]?.photo?.url}

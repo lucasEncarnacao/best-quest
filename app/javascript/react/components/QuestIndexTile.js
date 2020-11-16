@@ -7,11 +7,26 @@ import {
   Grid,
   Typography,
 } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 import CategoryIcon from "./CategoryIcon";
 import ReadOnlyRating from "./ReadOnlyRating";
 
+const useStyles = makeStyles((theme) => ({
+  card: {
+    backgroundColor: theme.palette.primary.main,
+    height: "100%",
+  },
+  ratingBG: {
+    backgroundColor: theme.palette.dark.main,
+    padding: theme.spacing(),
+    borderRadius: 15,
+  },
+}));
+
 const QuestIndexTile = (props) => {
+  const classes = useStyles();
   let avgTime = "";
+  let avgRating = null;
 
   if (props.quest.avgTime === null) {
     avgTime = "No times";
@@ -19,27 +34,45 @@ const QuestIndexTile = (props) => {
     avgTime = props.quest.avgTime;
   }
 
+  if (props.quest.avgRating === null) {
+    avgRating = <ReadOnlyRating rating={props.quest.avgRating} color />;
+  } else {
+    avgRating = (
+      <div className={classes.ratingBG}>
+        <ReadOnlyRating rating={props.quest.avgRating} color />
+      </div>
+    );
+  }
+
   return (
     <Grid item xs={12} md={6} lg={4}>
-      <Card>
+      <Card className={classes.card}>
         <CardActionArea component={RouterLink} to={`/quests/${props.quest.id}`}>
           <CardContent>
             <Grid container alignItems="center" spacing={2}>
-              <CategoryIcon category={props.quest.category} />
-
-              <Grid item xs>
-                <Typography>{props.quest.name}</Typography>
+              <Grid item>
+                <CategoryIcon category={props.quest.category} size="small" />
               </Grid>
 
-              <Typography>{props.quest.owner?.username}</Typography>
+              <Grid item xs>
+                <Typography variant="h4">{props.quest.name}</Typography>
+              </Grid>
+
+              <Grid item>
+                <Typography variant="h6">
+                  @{props.quest.owner?.username}
+                </Typography>
+              </Grid>
             </Grid>
 
-            <Grid container>
-              <Grid item xs>
-                <ReadOnlyRating rating={props.quest.avgRating} />
-              </Grid>
+            <Grid container alignItems="flex-end" spacing={2}>
+              <Grid item>{avgRating}</Grid>
 
-              <Typography>{avgTime}</Typography>
+              <Grid item xs />
+
+              <Grid item>
+                <Typography variant="h6">{avgTime}</Typography>
+              </Grid>
             </Grid>
           </CardContent>
         </CardActionArea>

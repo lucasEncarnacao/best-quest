@@ -11,7 +11,10 @@ const NavDrawerItem = (props) => {
         to={props.link}
         onClick={props.handleDrawerToggle}
       >
-        <ListItemText primary={props.text} />
+        <ListItemText
+          primary={props.text}
+          primaryTypographyProps={{ variant: "h6" }}
+        />
       </ListItem>
       <Divider />
     </>

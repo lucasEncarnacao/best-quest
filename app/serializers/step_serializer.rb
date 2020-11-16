@@ -1,5 +1,5 @@
 class StepSerializer < ActiveModel::Serializer
-  attributes :clue, :hint, :description, :photo, :lat, :lng
+  attributes :clue, :hint, :answer, :description, :photo, :lat, :lng
 
   def lat
     object.lat.to_f
