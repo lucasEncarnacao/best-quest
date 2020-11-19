@@ -1,4 +1,6 @@
 class Api::V1::CheckLocsController < ApiController
+  include Haversine
+
   def create
     quest = Quest.find(params["quest_id"])
     step = quest.steps.where(step_num: params["step_num"]).first
@@ -9,7 +11,7 @@ class Api::V1::CheckLocsController < ApiController
     answer_lng = step.lng
 
     #great circle distance between 2 points on the globe
-    distance = Haversine.distance([lat, lng], [answer_lat, answer_lng]).to_ft
+    distance = to_ft(haversine_dist(lat, lng, answer_lat, answer_lng))
     
     if distance < 300 #300 ft radius
       render json: true
