@@ -52,7 +52,6 @@ gem 'valid_attribute', group: [:development, :test]
 gem 'shoulda-matchers', group: [:development, :test], require: false
 gem 'webpacker', '~> 3.3'
 gem 'active_model_serializers'
-gem 'haversine'
 gem 'redis', '~> 4.0'
 gem 'warden'
 gem 'jwt'
