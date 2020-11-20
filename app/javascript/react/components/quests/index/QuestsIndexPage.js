@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { Redirect } from "react-router-dom";
 import QuestsContainer from "./QuestsContainer";
-import UserContext from "./UserContext";
+import UserContext from "../../auth/user/UserContext";
 
 const QuestsIndexPage = (props) => {
   const { currentUser } = useContext(UserContext);

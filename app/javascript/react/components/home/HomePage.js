@@ -2,10 +2,10 @@ import React from "react";
 import { Link as RouterLink } from "react-router-dom";
 import { Box, Button, Grid, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import logo from "./logo.png";
-import magnifier from "./magnifier.png";
-import mobile from "./mobile.png";
-import path from "./path.png";
+import logo from "../../../../assets/images/logo.png";
+import magnifier from "../../../../assets/images/homepage/magnifier.png";
+import mobile from "../../../../assets/images/homepage/mobile.png";
+import path from "../../../../assets/images/homepage/path.png";
 
 const useStyles = makeStyles((theme) => ({
   topSection: {

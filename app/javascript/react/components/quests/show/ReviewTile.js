@@ -1,6 +1,6 @@
 import React from "react";
 import { Card, CardContent, Grid, Typography } from "@material-ui/core";
-import ReadOnlyRating from "./ReadOnlyRating";
+import ReadOnlyRating from "../../reusable/ReadOnlyRating";
 
 const ReviewTile = (props) => {
   const { rating, comment, ownerName } = props.review;

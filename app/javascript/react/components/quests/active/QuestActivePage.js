@@ -3,9 +3,9 @@ import { Redirect } from "react-router-dom";
 import HintSection from "./HintSection";
 import SolvingView from "./SolvingView";
 import SolvedView from "./SolvedView";
-import QuestCompleteView from "./QuestCompleteView";
-import QuestGroupView from "./QuestGroupView";
-import UserContext from "./UserContext";
+import QuestCompleteView from "./complete/QuestCompleteView";
+import QuestGroupView from "../group/QuestGroupView";
+import UserContext from "../../auth/user/UserContext";
 
 const QuestActivePage = (props) => {
   const { currentUser } = useContext(UserContext);

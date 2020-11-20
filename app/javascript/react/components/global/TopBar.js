@@ -11,8 +11,8 @@ import {
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import { makeStyles } from "@material-ui/core/styles";
-import UserContext from "./UserContext";
-import logo from "./logo.png";
+import UserContext from "../auth/user/UserContext";
+import logo from "../../../../assets/images/logo.png";
 
 const useStyles = makeStyles((theme) => ({
   title: {

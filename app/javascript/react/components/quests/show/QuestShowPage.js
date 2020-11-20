@@ -2,10 +2,10 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link as RouterLink, Redirect } from "react-router-dom";
 import { Box, Button, Card, Grid, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import CategoryIcon from "../../reusable/CategoryIcon";
+import ReadOnlyRating from "../../reusable/ReadOnlyRating";
 import ReviewsList from "./ReviewsList";
-import CategoryIcon from "./CategoryIcon";
-import ReadOnlyRating from "./ReadOnlyRating";
-import UserContext from "./UserContext";
+import UserContext from "../../auth/user/UserContext";
 
 const useStyles = makeStyles((theme) => ({
   page: {

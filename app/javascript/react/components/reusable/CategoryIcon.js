@@ -1,8 +1,8 @@
 import React from "react";
-import art from "./art.png";
-import food from "./food.png";
-import history from "./history.png";
-import misc from "./misc.png";
+import art from "../../../../assets/images/icons/art.png";
+import food from "../../../../assets/images/icons/food.png";
+import history from "../../../../assets/images/icons/history.png";
+import misc from "../../../../assets/images/icons/misc.png";
 
 const CategoryIcon = (props) => {
   let icon = null;
