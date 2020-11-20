@@ -1,4 +1,6 @@
 class Api::V1::LobbiesController < ApiController
+  include LobbyCodes
+
   def create
     lobby = Lobby.new(code: gen_code)
     lobby.quest = Quest.find(params["quest_id"])
@@ -17,20 +19,6 @@ class Api::V1::LobbiesController < ApiController
       render json: lobby
     else
       render json: { error: "Could not find lobby" }
-    end
-  end
-
-  private
-
-  def gen_code
-    charset = Array('A'..'Z')
-    code = Array.new(4) { charset.sample }.join
-
-    #generate unique code
-    if Lobby.where(code: code).length > 0 
-      gen_code
-    else
-      code
     end
   end
 end

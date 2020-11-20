@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { Box, Toolbar } from "@material-ui/core";
 import { ThemeProvider } from "@material-ui/core/styles";
 import { makeStyles } from "@material-ui/core/styles";
-import UserProvider from "./UserProvider";
+import UserProvider from "../auth/user/UserProvider";
 import theme from "./theme";
 import TopBar from "./TopBar";
-import NavDrawer from "./NavDrawer";
+import NavDrawer from "./nav/NavDrawer";
 import Routes from "./Routes";
 
 const useStyles = makeStyles((theme) => ({

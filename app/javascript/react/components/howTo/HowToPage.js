@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Grid, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import CategoryIcon from "./CategoryIcon";
+import CategoryIcon from "../reusable/CategoryIcon";
 
 const useStyles = makeStyles((theme) => ({
   darkSection: {

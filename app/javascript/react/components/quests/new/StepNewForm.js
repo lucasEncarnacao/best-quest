@@ -8,8 +8,8 @@ import {
   Typography,
 } from "@material-ui/core";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import MapNewContainer from "./MapNewContainer";
 import DropzoneContainer from "./DropzoneContainer";
+import MapNewContainer from "../../maps/MapNewContainer";
 
 const StepNewForm = (props) => {
   const [expanded, setExpanded] = useState(false);

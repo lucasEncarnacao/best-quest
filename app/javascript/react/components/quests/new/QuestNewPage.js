@@ -3,7 +3,7 @@ import { Redirect } from "react-router-dom";
 import { Box, Button, Grid, Typography } from "@material-ui/core";
 import QuestNewForm from "./QuestNewForm";
 import StepNewForm from "./StepNewForm";
-import UserContext from "./UserContext";
+import UserContext from "../../auth/user/UserContext";
 
 const QuestNewPage = (props) => {
   const { currentUser } = useContext(UserContext);

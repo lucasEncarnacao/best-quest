@@ -7,7 +7,6 @@ Rails.application.routes.draw do
   get '/quests', to: 'homes#index'
   get '/quests/:id', to: 'homes#index'
   get '/quests/:id/active', to: 'homes#index'
-  get '/quests/:id/complete', to: 'homes#index'
   get '/users/sign_up', to: 'homes#index'
   get '/users/sign_in', to: 'homes#index'
 

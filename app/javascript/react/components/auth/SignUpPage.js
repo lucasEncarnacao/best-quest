@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { Redirect } from "react-router-dom";
 import { Box, Button, Link, TextField, Typography } from "@material-ui/core";
-import UserContext from "./UserContext";
+import UserContext from "./user/UserContext";
 
 const SignUpPage = (props) => {
   const { signIn } = useContext(UserContext);

@@ -7,8 +7,8 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
-import QuestLobbyView from "./QuestLobbyView";
 import { makeStyles } from "@material-ui/core/styles";
+import QuestLobbyView from "./QuestLobbyView";
 
 const useStyles = makeStyles((theme) => ({
   page: {

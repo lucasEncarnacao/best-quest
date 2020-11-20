@@ -8,8 +8,8 @@ import {
   Typography,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import CategoryIcon from "./CategoryIcon";
-import ReadOnlyRating from "./ReadOnlyRating";
+import CategoryIcon from "../../reusable/CategoryIcon";
+import ReadOnlyRating from "../../reusable/ReadOnlyRating";
 
 const useStyles = makeStyles((theme) => ({
   card: {
