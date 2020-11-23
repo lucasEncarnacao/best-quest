@@ -41,29 +41,13 @@ const QuestActivePage = (props) => {
 
     //start quest timer
     const userToken = localStorage.getItem("userToken");
-    fetch(`/api/v1/quests/${questId}/completion_times`, {
-      credentials: "same-origin",
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${userToken}`,
-      },
-    })
-      .then((response) => {
-        if (response.ok) {
-          return response;
-        } else {
-          let errorMessage = `${response.status} (${response.statusText})`,
-            error = new Error(errorMessage);
-          throw error;
-        }
-      })
-      .then((response) => response.json())
-      .then((completionTimeId) => {
-        setCompletionTimeId(completionTimeId);
-      })
-      .catch((error) => console.error(`Error in fetch: ${error.message}`));
+    FetchHelper.post(
+      `/api/v1/quests/${questId}/completion_times`,
+      null,
+      userToken
+    ).then((completionTimeId) => {
+      setCompletionTimeId(completionTimeId);
+    });
   }, []);
 
   const pingLobby = (extraPayload) => {
@@ -82,26 +66,8 @@ const QuestActivePage = (props) => {
       lng: position.coords.longitude,
     };
 
-    fetch("/api/v1/check_locs", {
-      credentials: "same-origin",
-      method: "POST",
-      body: JSON.stringify(locationPayload),
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => {
-        if (response.ok) {
-          return response;
-        } else {
-          let errorMessage = `${response.status} (${response.statusText})`,
-            error = new Error(errorMessage);
-          throw error;
-        }
-      })
-      .then((response) => response.json())
-      .then((locIsValid) => {
+    FetchHelper.post("/api/v1/check_locs", locationPayload).then(
+      (locIsValid) => {
         if (locIsValid) {
           setSolving(false);
           pingLobby();
@@ -111,8 +77,8 @@ const QuestActivePage = (props) => {
           setBadLocCounter(badLocCounter + 1);
         }
         setLoading(false);
-      })
-      .catch((error) => console.error(`Error in fetch: ${error.message}`));
+      }
+    );
   };
 
   const handleError = (error) => {
@@ -133,28 +99,14 @@ const QuestActivePage = (props) => {
       setCompleted(true);
 
       //end timer
-      fetch(`/api/v1/completion_times/${completionTimeId}`, {
-        credentials: "same-origin",
-        method: "PATCH",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      })
-        .then((response) => {
-          if (response.ok) {
-            return response;
-          } else {
-            let errorMessage = `${response.status} (${response.statusText})`,
-              error = new Error(errorMessage);
-            throw error;
-          }
-        })
-        .then((response) => response.json())
-        .then((body) => {
+      FetchHelper.patch(
+        `/api/v1/completion_times/${completionTimeId}`,
+        null
+      ).then((body) => {
+        if (body.completion_time) {
           setCompletionTime(body.completion_time.formatted_str);
-        })
-        .catch((error) => console.error(`Error in fetch: ${error.message}`));
+        }
+      });
     } else {
       setCurrentStepIndex(currentStepIndex + 1);
       setShouldShowHintSection(false);
@@ -171,30 +123,14 @@ const QuestActivePage = (props) => {
 
   const addNewReview = (formPayload) => {
     const userToken = localStorage.getItem("userToken");
-    fetch(`/api/v1/quests/${questId}/reviews`, {
-      credentials: "same-origin",
-      method: "POST",
-      body: JSON.stringify(formPayload),
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${userToken}`,
-      },
-    })
-      .then((response) => {
-        if (response.ok) {
-          return response;
-        } else {
-          let errorMessage = `${response.status} (${response.statusText})`,
-            error = new Error(errorMessage);
-          throw error;
-        }
-      })
-      .then((response) => response.json())
-      .then((review) => {
-        setShouldRedirect(true);
-      })
-      .catch((error) => console.error(`Error in fetch: ${error.message}`));
+
+    FetchHelper.post(
+      `/api/v1/quests/${questId}/reviews`,
+      formPayload,
+      userToken
+    ).then((review) => {
+      setShouldRedirect(true);
+    });
   };
 
   const handleResponse = (data) => {

@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { Redirect } from "react-router-dom";
 import { Box, Button, Link, TextField, Typography } from "@material-ui/core";
 import UserContext from "./user/UserContext";
+import FetchHelper from "../../helpers/FetchHelper";
 
 const SignUpPage = (props) => {
   const { signIn } = useContext(UserContext);
@@ -24,35 +25,15 @@ const SignUpPage = (props) => {
     event.preventDefault();
     let formPayload = { user: { ...formFields } };
 
-    fetch(`/api/v1/users`, {
-      credentials: "same-origin",
-      method: "POST",
-      body: JSON.stringify(formPayload),
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => {
-        if (response.ok) {
-          return response;
-        } else {
-          let errorMessage = `${response.status} (${response.statusText})`,
-            error = new Error(errorMessage);
-          throw error;
-        }
-      })
-      .then((response) => response.json())
-      .then((body) => {
-        if (body.username) {
-          localStorage.setItem("userToken", body.jwt_token);
-          signIn(body.username);
-          setShouldRedirect(true);
-        } else if (body.errors) {
-          setErrors(body.errors);
-        }
-      })
-      .catch((error) => console.error(`Error in fetch: ${error.message}`));
+    FetchHelper.post(`/api/v1/users`, formPayload).then((body) => {
+      if (body.username) {
+        localStorage.setItem("userToken", body.jwt_token);
+        signIn(body.username);
+        setShouldRedirect(true);
+      } else if (body.errors) {
+        setErrors(body.errors);
+      }
+    });
   };
 
   if (shouldRedirect) {
