@@ -12,6 +12,7 @@ import {
 import MenuIcon from "@material-ui/icons/Menu";
 import { makeStyles } from "@material-ui/core/styles";
 import UserContext from "../auth/user/UserContext";
+import FetchHelper from "../../helpers/FetchHelper";
 import logo from "../../../../assets/images/logo.png";
 
 const useStyles = makeStyles((theme) => ({
@@ -43,30 +44,11 @@ const TopBar = (props) => {
   useEffect(() => {
     const userToken = localStorage.getItem("userToken");
 
-    fetch(`/api/v1/users/auto_sign_in`, {
-      credentials: "same-origin",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${userToken}`,
-      },
-    })
-      .then((response) => {
-        if (response.ok) {
-          return response;
-        } else {
-          let errorMessage = `${response.status} (${response.statusText})`,
-            error = new Error(errorMessage);
-          throw error;
-        }
-      })
-      .then((response) => response.json())
-      .then((body) => {
-        if (body.user) {
-          signIn(body.user.username);
-        }
-      })
-      .catch((error) => console.error(`Error in fetch: ${error.message}`));
+    FetchHelper.get(`/api/v1/users/auto_sign_in`, userToken).then((body) => {
+      if (body.user) {
+        signIn(body.user.username);
+      }
+    });
   }, []);
 
   const handleSignOut = () => {

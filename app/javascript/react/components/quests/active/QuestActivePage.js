@@ -6,6 +6,7 @@ import SolvedView from "./SolvedView";
 import QuestCompleteView from "./complete/QuestCompleteView";
 import QuestGroupView from "../group/QuestGroupView";
 import UserContext from "../../auth/user/UserContext";
+import FetchHelper from "../../../helpers/FetchHelper";
 
 const QuestActivePage = (props) => {
   const { currentUser } = useContext(UserContext);
@@ -32,21 +33,11 @@ const QuestActivePage = (props) => {
   }
 
   useEffect(() => {
-    fetch(`/api/v1/quests/${questId}/steps`)
-      .then((response) => {
-        if (response.ok) {
-          return response;
-        } else {
-          let errorMessage = `${response.status} (${response.statusText})`,
-            error = new Error(errorMessage);
-          throw error;
-        }
-      })
-      .then((response) => response.json())
-      .then((body) => {
+    FetchHelper.get(`/api/v1/quests/${questId}/steps`).then((body) => {
+      if (body.steps) {
         setSteps(body.steps);
-      })
-      .catch((error) => console.error(`Error in fetch: ${error.message}`));
+      }
+    });
 
     //start quest timer
     const userToken = localStorage.getItem("userToken");

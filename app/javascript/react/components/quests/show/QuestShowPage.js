@@ -6,6 +6,7 @@ import CategoryIcon from "../../reusable/CategoryIcon";
 import ReadOnlyRating from "../../reusable/ReadOnlyRating";
 import ReviewsList from "./ReviewsList";
 import UserContext from "../../auth/user/UserContext";
+import FetchHelper from "../../../helpers/FetchHelper";
 
 const useStyles = makeStyles((theme) => ({
   page: {
@@ -49,21 +50,11 @@ const QuestShowPage = (props) => {
   }
 
   useEffect(() => {
-    fetch(`/api/v1/quests/${questId}`)
-      .then((response) => {
-        if (response.ok) {
-          return response;
-        } else {
-          let errorMessage = `${response.status} (${response.statusText})`,
-            error = new Error(errorMessage);
-          throw error;
-        }
-      })
-      .then((response) => response.json())
-      .then((body) => {
+    FetchHelper.get(`/api/v1/quests/${questId}`).then((body) => {
+      if (body.quest) {
         setQuest(body.quest);
-      })
-      .catch((error) => console.error(`Error in fetch: ${error.message}`));
+      }
+    });
   }, []);
 
   if (quest.avgTime !== null) {
