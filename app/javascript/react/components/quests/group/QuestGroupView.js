@@ -9,6 +9,7 @@ import {
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import QuestLobbyView from "./QuestLobbyView";
+import FetchHelper from "../../../helpers/FetchHelper";
 
 const useStyles = makeStyles((theme) => ({
   page: {
@@ -29,34 +30,15 @@ const QuestGroupView = (props) => {
   let lobbyCodeTextField = null;
 
   const createLobbyClick = (event) => {
-    fetch(`/api/v1/quests/${questId}/lobbies`, {
-      credentials: "same-origin",
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => {
-        if (response.ok) {
-          return response;
-        } else {
-          let errorMessage = `${response.status} (${response.statusText})`,
-            error = new Error(errorMessage);
-          throw error;
-        }
-      })
-      .then((response) => response.json())
-      .then((body) => {
-        if (body.lobby) {
-          setLobbyCode(body.lobby.code);
-          setLobbyId(body.lobby.id);
-          setShouldShowLobby(true);
-        } else if (body.error) {
-          setErrorMessage(body.error);
-        }
-      })
-      .catch((error) => console.error(`Error in fetch: ${error.message}`));
+    FetchHelper.post(`/api/v1/quests/${questId}/lobbies`, null).then((body) => {
+      if (body.lobby) {
+        setLobbyCode(body.lobby.code);
+        setLobbyId(body.lobby.id);
+        setShouldShowLobby(true);
+      } else if (body.error) {
+        setErrorMessage(body.error);
+      }
+    });
   };
 
   const joinLobbySubmit = (event) => {
@@ -64,34 +46,15 @@ const QuestGroupView = (props) => {
 
     let sendCode = formCode === "" ? "xxx" : formCode;
 
-    fetch(`/api/v1/lobbies/${sendCode}`, {
-      credentials: "same-origin",
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => {
-        if (response.ok) {
-          return response;
-        } else {
-          let errorMessage = `${response.status} (${response.statusText})`,
-            error = new Error(errorMessage);
-          throw error;
-        }
-      })
-      .then((response) => response.json())
-      .then((body) => {
-        if (body.lobby) {
-          setLobbyCode(body.lobby.code);
-          setLobbyId(body.lobby.id);
-          setShouldShowLobby(true);
-        } else if (body.error) {
-          setErrorMessage(body.error);
-        }
-      })
-      .catch((error) => console.error(`Error in fetch: ${error.message}`));
+    FetchHelper.get(`/api/v1/lobbies/${sendCode}`).then((body) => {
+      if (body.lobby) {
+        setLobbyCode(body.lobby.code);
+        setLobbyId(body.lobby.id);
+        setShouldShowLobby(true);
+      } else if (body.error) {
+        setErrorMessage(body.error);
+      }
+    });
   };
 
   const handleChange = (event) => {
