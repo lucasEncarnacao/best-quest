@@ -37,7 +37,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const TopBar = (props) => {
-  const { currentUser, signIn, signOut } = useContext(UserContext);
+  const { currentUser, signIn, signOut, updateAutoSignInCheck } = useContext(
+    UserContext
+  );
   const classes = useStyles();
   let loginDisplay = null;
 
@@ -48,6 +50,7 @@ const TopBar = (props) => {
       if (body.user) {
         signIn(body.user.username);
       }
+      updateAutoSignInCheck(true);
     });
   }, []);
 

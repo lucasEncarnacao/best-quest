@@ -9,7 +9,7 @@ import UserContext from "../../auth/user/UserContext";
 import FetchHelper from "../../../helpers/FetchHelper";
 
 const QuestActivePage = (props) => {
-  const { currentUser } = useContext(UserContext);
+  const { currentUser, checkedAutoSignIn } = useContext(UserContext);
   const [steps, setSteps] = useState([]);
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
   const [shouldShowHintSection, setShouldShowHintSection] = useState(false);
@@ -19,6 +19,7 @@ const QuestActivePage = (props) => {
   const [loading, setLoading] = useState(false); //check loc button load
   const [badLocCounter, setBadLocCounter] = useState(0); //controls showing give up button
   const [shouldRedirect, setShouldRedirect] = useState(false);
+  const [authorized, setAuthorized] = useState(true);
   const [completionTimeId, setCompletionTimeId] = useState(0);
   const [completionTime, setCompletionTime] = useState("");
   const [shouldShowGroupView, setShouldShowGroupView] = useState(
@@ -28,27 +29,27 @@ const QuestActivePage = (props) => {
   let view = null;
   let hintSection = null;
 
-  if (currentUser === "") {
-    return <Redirect to="/users/sign_in" />;
-  }
-
   useEffect(() => {
-    FetchHelper.get(`/api/v1/quests/${questId}/steps`).then((body) => {
-      if (body.steps) {
-        setSteps(body.steps);
-      }
-    });
+    if (checkedAutoSignIn && currentUser === "") {
+      setAuthorized(false);
+    } else {
+      FetchHelper.get(`/api/v1/quests/${questId}/steps`).then((body) => {
+        if (body.steps) {
+          setSteps(body.steps);
+        }
+      });
 
-    //start quest timer
-    const userToken = localStorage.getItem("userToken");
-    FetchHelper.post(
-      `/api/v1/quests/${questId}/completion_times`,
-      null,
-      userToken
-    ).then((completionTimeId) => {
-      setCompletionTimeId(completionTimeId);
-    });
-  }, []);
+      //start quest timer
+      const userToken = localStorage.getItem("userToken");
+      FetchHelper.post(
+        `/api/v1/quests/${questId}/completion_times`,
+        null,
+        userToken
+      ).then((completionTimeId) => {
+        setCompletionTimeId(completionTimeId);
+      });
+    }
+  }, [checkedAutoSignIn, currentUser]);
 
   const pingLobby = (extraPayload) => {
     let nextStepNum = currentStepIndex + 1 + 1;
@@ -166,6 +167,10 @@ const QuestActivePage = (props) => {
 
     pingLobby({ start: true });
   };
+
+  if (!authorized) {
+    return <Redirect to="/users/sign_in" />;
+  }
 
   if (shouldRedirect) {
     return <Redirect to="/" />;

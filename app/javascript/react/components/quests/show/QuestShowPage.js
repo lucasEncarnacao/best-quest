@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
 
 const QuestShowPage = (props) => {
   const classes = useStyles();
-  const { currentUser } = useContext(UserContext);
+  const { currentUser, checkedAutoSignIn } = useContext(UserContext);
   const [quest, setQuest] = useState({
     name: "",
     category: "",
@@ -42,25 +42,30 @@ const QuestShowPage = (props) => {
     owner: {},
     reviews: [],
   });
+  const [authorized, setAuthorized] = useState(true);
   const questId = props.match.params.id;
   let avgTime = null;
 
-  if (currentUser === "") {
-    return <Redirect to="/users/sign_in" />;
-  }
-
   useEffect(() => {
-    FetchHelper.get(`/api/v1/quests/${questId}`).then((body) => {
-      if (body.quest) {
-        setQuest(body.quest);
-      }
-    });
-  }, []);
+    if (checkedAutoSignIn && currentUser === "") {
+      setAuthorized(false);
+    } else {
+      FetchHelper.get(`/api/v1/quests/${questId}`).then((body) => {
+        if (body.quest) {
+          setQuest(body.quest);
+        }
+      });
+    }
+  }, [checkedAutoSignIn, currentUser]);
 
   if (quest.avgTime !== null) {
     avgTime = `${quest.avgTime}`;
   } else {
     avgTime = "No times yet";
+  }
+
+  if (!authorized) {
+    return <Redirect to="/users/sign_in" />;
   }
 
   return (
