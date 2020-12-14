@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Redirect } from "react-router-dom";
 import { Box, Button, Grid, Typography } from "@material-ui/core";
 import QuestNewForm from "./QuestNewForm";
@@ -6,7 +6,7 @@ import StepNewForm from "./StepNewForm";
 import UserContext from "../../auth/user/UserContext";
 
 const QuestNewPage = (props) => {
-  const { currentUser } = useContext(UserContext);
+  const { currentUser, checkedAutoSignIn } = useContext(UserContext);
   const [questFields, setQuestFields] = useState({
     name: "",
     category: "",
@@ -24,12 +24,19 @@ const QuestNewPage = (props) => {
     },
   ]);
   const [shouldRedirect, setShouldRedirect] = useState(false);
+  const [authorized, setAuthorized] = useState(true);
   const [errors, setErrors] = useState("");
   let stepForms = null;
   let errorMessages = null;
 
   App.LobbyChannel?.unsubscribe();
   App.cable?.disconnect();
+
+  useEffect(() => {
+    if (checkedAutoSignIn && currentUser === "") {
+      setAuthorized(false);
+    }
+  }, [checkedAutoSignIn, currentUser]);
 
   const handleChange = (event) => {
     setQuestFields({
@@ -129,7 +136,7 @@ const QuestNewPage = (props) => {
     );
   });
 
-  if (currentUser === "") {
+  if (!authorized) {
     return <Redirect to="/users/sign_in" />;
   }
 
