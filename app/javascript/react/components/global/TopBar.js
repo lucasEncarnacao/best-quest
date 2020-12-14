@@ -62,7 +62,9 @@ const TopBar = (props) => {
   if (currentUser !== "") {
     loginDisplay = (
       <>
-        <Typography variant="h6">{currentUser}</Typography>
+        <Hidden xsDown>
+          <Typography variant="h6">{currentUser}</Typography>
+        </Hidden>
         <Button
           className={classes.button}
           variant="outlined"
@@ -128,7 +130,9 @@ const TopBar = (props) => {
           </Grid>
 
           <Grid item>
-            <img className={classes.logo} src={logo} alt="logo" />
+            <Hidden xsDown>
+              <img className={classes.logo} src={logo} alt="logo" />
+            </Hidden>
           </Grid>
 
           <Grid item xs></Grid>
