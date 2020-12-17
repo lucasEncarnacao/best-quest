@@ -37,6 +37,18 @@ const theme = createMuiTheme({
       fontFamily: "Bebas Neue, sans-serif",
     },
   },
+  overrides: {
+    MuiAppBar: {
+      root: {
+        minHeight: "64px",
+      },
+    },
+    MuiToolbar: {
+      root: {
+        height: "64px",
+      },
+    },
+  },
 });
 
 export default theme;

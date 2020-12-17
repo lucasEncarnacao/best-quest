@@ -10,8 +10,13 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
   page: {
-    height: "68vh",
+    height: "calc(100% - 64px)",
+    width: "100%",
+    position: "fixed",
+    zIndex: "-1",
     backgroundColor: theme.palette.dark.main,
+  },
+  textColor: {
     color: theme.palette.dark.contrastText,
   },
   buttonLoading: {
@@ -60,40 +65,47 @@ const SolvingView = (props) => {
   }
 
   return (
-    <Box className={classes.page} p={10}>
-      <Grid container direction="column" alignItems="center" spacing={4}>
-        <Grid item>
-          <Typography className={classes.underline} variant="h2" align="center">
-            Clue {props.stepNum}
-          </Typography>
+    <>
+      <Box className={classes.page} />
+      <Box className={classes.textColor} p={10}>
+        <Grid container direction="column" alignItems="center" spacing={4}>
+          <Grid item>
+            <Typography
+              className={classes.underline}
+              variant="h2"
+              align="center"
+            >
+              Clue {props.stepNum}
+            </Typography>
+          </Grid>
+
+          <Grid item>
+            <Typography className={classes.regFont} variant="h3" align="center">
+              {props.clue}
+            </Typography>
+          </Grid>
+
+          <Grid item>
+            <Button
+              variant="contained"
+              color="secondary"
+              size="large"
+              onClick={props.checkLocation}
+              disabled={props.loading}
+            >
+              Am I there yet?
+              {buttonLoad}
+            </Button>
+          </Grid>
+
+          <Grid item>{errorMessage}</Grid>
+
+          <Grid item>{props.hintSection}</Grid>
+
+          <Grid item>{giveUpButton}</Grid>
         </Grid>
-
-        <Grid item>
-          <Typography className={classes.regFont} variant="h3" align="center">
-            {props.clue}
-          </Typography>
-        </Grid>
-
-        <Grid item>
-          <Button
-            variant="contained"
-            color="secondary"
-            size="large"
-            onClick={props.checkLocation}
-            disabled={props.loading}
-          >
-            Am I there yet?
-            {buttonLoad}
-          </Button>
-        </Grid>
-
-        <Grid item>{errorMessage}</Grid>
-
-        <Grid item>{props.hintSection}</Grid>
-
-        <Grid item>{giveUpButton}</Grid>
-      </Grid>
-    </Box>
+      </Box>
+    </>
   );
 };
 
