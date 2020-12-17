@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import { Box, Button, Grid, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import UserContext from "../auth/user/UserContext";
 import logo from "../../../../assets/images/logo.png";
 import magnifier from "../../../../assets/images/homepage/magnifier.png";
 import mobile from "../../../../assets/images/homepage/mobile.png";
@@ -39,6 +40,34 @@ const useStyles = makeStyles((theme) => ({
 
 const HomePage = (props) => {
   const classes = useStyles();
+  const { currentUser } = useContext(UserContext);
+  let mainButton = null;
+
+  if (currentUser === "") {
+    mainButton = (
+      <Button
+        variant="contained"
+        color="secondary"
+        size="large"
+        component={RouterLink}
+        to="/users/sign_up"
+      >
+        Sign Up
+      </Button>
+    );
+  } else {
+    mainButton = (
+      <Button
+        variant="contained"
+        color="secondary"
+        size="large"
+        component={RouterLink}
+        to="/quests"
+      >
+        Find Quests
+      </Button>
+    );
+  }
 
   return (
     <>
@@ -72,17 +101,7 @@ const HomePage = (props) => {
                 </Typography>
               </Box>
             </Grid>
-            <Grid item>
-              <Button
-                variant="contained"
-                color="secondary"
-                size="large"
-                component={RouterLink}
-                to="/users/sign_up"
-              >
-                Sign Up
-              </Button>
-            </Grid>
+            <Grid item>{mainButton}</Grid>
           </Grid>
 
           <Grid item xs={12} md={5} align="center">
